@@ -1,0 +1,4 @@
+.clip-polygon {
+    clip-path: polygon(50% 0%, 50% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
+    /* border-radius: 10px; */
+  }

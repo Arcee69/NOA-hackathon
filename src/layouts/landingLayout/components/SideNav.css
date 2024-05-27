@@ -1,0 +1,29 @@
+/* side navigation styles override */
+
+/*outer navs*/
+.side-navigation-panel
+  .side-navigation-panel-select
+  .side-navigation-panel-select-wrap
+  .side-navigation-panel-select-option {
+  color: #2a2f4f !important;
+  border-color: transparent !important;
+}
+
+
+/*Inner navs*/
+.side-navigation-panel
+  .side-navigation-panel-select
+  .side-navigation-panel-select-inner
+  .side-navigation-panel-select-inner-wrap
+  .side-navigation-panel-select-inner-option {
+  color: #2a2f4f !important;
+  border-color: transparent !important;
+}
+
+.side-navigation-panel
+  .side-navigation-panel-select
+  .side-navigation-panel-select-inner
+  .side-navigation-panel-select-inner-wrap
+  .side-navigation-panel-select-inner-option {
+  padding: 0.75rem 4rem !important;
+}
