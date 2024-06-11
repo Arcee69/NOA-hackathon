@@ -193,16 +193,16 @@ const UserDetails = ({ setActiveTab }) => {
 
                         </div>
 
-                        <div className='w-full  h-[116px] bg-[#fff] rounded-xl'>
+                         {/* <div className='w-full  h-[116px] bg-[#fff] rounded-xl'>
                           <div className='xs:p-4 md:p-8'>
                               <h2 className='text-xl text-[#000]'>Submission Details</h2>
                               <p className='text-base text-NEUTRAL-_800'>
                                 Choose how your users log in and what info they must provide
                               </p>
                           </div>
-                        </div>
+                        </div> */}
 
-                        <div className='flex flex-col gap-4'>
+                        {/* <div className='flex flex-col gap-4'>
                         <FieldArray
                           name='customs'
                           render={arrayHelpers => (
@@ -237,15 +237,15 @@ const UserDetails = ({ setActiveTab }) => {
                               </button>
                             </div>
                           )}
-                        />
+                        /> 
 {/* 
                           <button type='button' className='bg-NEUTRAL-_900 flex justify-center mt-5 gap-3 items-center rounded-md xs:w-[180px] lg:w-[257px] h-[56px]'>
                             <img src={addIcon} alt="add-icon" />
                             <p className='font-semibold xs:text-sm lg:text-lg text-[#fff]'></p>
-                          </button> */}
-                        </div>
+                          </button> 
+                        </div> */}
 
-                      </div>
+                      </div> 
 
                       <div className='flex xs:mt-5 md:mt-5 lg:mt-5 gap-4 justify-end'>
                         <button 

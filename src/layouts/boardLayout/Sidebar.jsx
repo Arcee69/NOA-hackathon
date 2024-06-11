@@ -78,7 +78,7 @@ export default function Sidebar() {
       
       },
       {
-          title: "Manage Contest",
+          title: "Manage Hackathon",
           children: false,
           itemId: '/manage-contests',
           icon: () => (
@@ -94,21 +94,21 @@ export default function Sidebar() {
           ),
       },
       {
-          title: "Judge Hackathon",
+          title: "Manage Submissions",
           children: false,
-          itemId: '/judges-contests',
+          itemId: '#', ///judges-contests
           icon: () => (
             <img src={judgeIcon} alt="icon" />
           ),
       },
-      {
-          title: "Manage Judges",
-          children: false,
-          itemId: '/manage-judges',
-          icon: () => (
-            <img src={judgeIcon} alt="icon" />
-          ),
-      },
+      // {
+      //     title: "Manage Judges",
+      //     children: false,
+      //     itemId: '/manage-judges',
+      //     icon: () => (
+      //       <img src={judgeIcon} alt="icon" />
+      //     ),
+      // },
       {
           title: "Analytics",
           children: false,

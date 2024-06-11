@@ -25,10 +25,10 @@ const PhotoContest = () => {
         id: 4,
         tabName: "Prizes"
       },
-      {
-        id: 5,
-        tabName: "Entry"
-      },
+      // {
+      //   id: 5,
+      //   tabName: "Entry"
+      // },
     ]
   )
 
@@ -47,9 +47,9 @@ const PhotoContest = () => {
       case "Prizes":
         setActiveTab("Prizes");
         break;
-      case "Entry":
-        setActiveTab("Entry");
-        break;
+      // case "Entry":
+      //   setActiveTab("Entry");
+      //   break;
       default:
         setActiveTab("Basic Info");
         break;
@@ -82,7 +82,7 @@ const PhotoContest = () => {
       {activeTab === "User Details" && <UserDetails setActiveTab={setActiveTab} />}
       {activeTab === "Winner Selection" && <WinnerSelection setActiveTab={setActiveTab} />}
       {activeTab === "Prizes" && <Prizes setActiveTab={setActiveTab} />}
-      {activeTab === "Entry" && <Entry  setActiveTab={setActiveTab}/>}
+      {/* {activeTab === "Entry" && <Entry  setActiveTab={setActiveTab}/>} */}
     </div>
   )
 }

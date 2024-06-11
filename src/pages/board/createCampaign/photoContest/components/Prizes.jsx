@@ -62,9 +62,9 @@ const Prizes = ({ setActiveTab }) => {
       formData.append("prize_pic", prizes[0]?.imageDoc);
 
       dispatch(winnerPrizes(formData))
-      // .then(() => {
-        
-      // })
+      .then(() => {
+        navigate("/create-campaign/contest-view")
+      })
 
   }
 
@@ -221,8 +221,8 @@ const Prizes = ({ setActiveTab }) => {
 
                   <div className='flex xs:mt-3 md:mt-5 lg:mt-5 gap-4 justify-end'>
                     <button 
-                      type="button" 
-                      onClick={() => {setActiveTab("Entry"), window.scrollTo(0, 0)}}
+                      type="submit" 
+                      onClick={() => { window.scrollTo(0, 0)}}  //setActiveTab("Entry"),
                       className="font-normal bg-primary text-base p-2 rounded-md text-[#fff] border border-solid"
                       style={{ width: "130px" }}
                     >
