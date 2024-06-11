@@ -23,9 +23,10 @@ export default function Header({ setOpenMobileSidebar }) {
 
 
   const userData  = useSelector(state => state.userLogin)
-  const { user } = userData.data
+  console.log(userData, "userData")
+  const user  = userData?.data?.data
 
-  // console.log(user, "opor")
+  console.log(user, "opor")
 
   const location = useLocation()
 
@@ -41,16 +42,16 @@ export default function Header({ setOpenMobileSidebar }) {
           className="lg:hidden xs:block cursor-pointer"
           onClick={() => setOpenMobileSidebar(true)}
         />
-      <div className=" font-medium text-left text-[#000] text-2xl xs:hidden lg:block">
+        <div className=" font-medium text-left text-[#000] text-2xl xs:hidden lg:block">
           {
             location.pathname === "/create-campaign/photo-contest" ? "Photo Contest" :
             location.pathname === "/create-campaign/video-contest" ? "Video Contest" :
             location.pathname === "/create-campaign/essay-contest" ? "Essay Contest" :
             location.pathname === "/create-campaign/visual-hackathon" ? "Visual Hackathon" : null
           }
+        </div>
       </div>
-      </div>
-      {/* <div className="flex gap-4 items-center">
+      <div className="flex gap-4 items-center">
   
         <img
           src={avatar}
@@ -71,8 +72,8 @@ export default function Header({ setOpenMobileSidebar }) {
           aria-expanded={open ? "true" : undefined}
           onClick={handleClick}
         >
-          <p>{`${user?.first_name} ${user?.last_name}`}</p>
-          {/* <p>{userData?.role}</p> 
+          <p className="capitalize">{`${user?.name}`}</p>
+          {/* <p>{user?.role}</p> */}
         </div>
         <Menu
           id="header-menu"
@@ -89,7 +90,7 @@ export default function Header({ setOpenMobileSidebar }) {
             Logout
           </MenuItem>
         </Menu>
-      </div> */}
+      </div> 
     </div>
   );
 }

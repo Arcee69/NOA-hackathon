@@ -123,7 +123,7 @@ const LoginPage = () => {
                     <div className="flex flex-col xs:w-full lg:w-[507px]">
                       <div className="flex flex-row items-center justify-between">
                         <label htmlFor='email' className="text-base font-semibold text-[#000000]">Password</label>
-                        <p className="text-[#51B0F5] text-sm cursor-pointer" onClick={() => navigate("/forgot-password")}>Forgot Password?</p>
+                        <p className="text-[#027315]  text-sm cursor-pointer" onClick={() => navigate("/forgot-password")}>Forgot Password?</p>
                       </div>
                       <PasswordField 
                         name="password"
@@ -138,7 +138,7 @@ const LoginPage = () => {
                     </div>
 
                     <button 
-                      className= {`${loading ? "bg-[#e8e9eb] text-[#fff]" : " bg-primary text-[#fff] "} xs:w-full lg:w-[507px]  rounded-lg p-3 cursor-pointer text-center w-full h-[54px] text-lg font-medium`}
+                      className= {`${loading ? "bg-[#e8e9eb] text-[#fff]" : " bg-[#027315]  text-[#fff] "} xs:w-full lg:w-[507px]  rounded-lg p-3 cursor-pointer text-center w-full h-[54px] text-lg font-medium`}
                       type="submit"
                     >
                       {loading ?  "Please wait..."  :  "Login"}
@@ -152,7 +152,7 @@ const LoginPage = () => {
             </Formik>
           </div>
          
-          <div className="flex  h-[178px] flex-col gap-6">
+          {/* <div className="flex  h-[178px] flex-col gap-6">
             <p className="text-center text-base text-[#000] w-full">Or Login With</p>
             <button
               // onClick={() => serviceData.push("google") }
@@ -168,10 +168,10 @@ const LoginPage = () => {
               <img src={Facebook} alt="facebook-icon"/>
               <span className="">Log in With Facebook</span>
             </button>
-          </div>
+          </div> */}
           <p className="text-center w-full text-base font-semibold">
             Don't have an account? 
-            <span className="text-[#299EF3] cursor-pointer ml-1"  onClick={() => {navigate("/register"), window.scrollTo(0, 0)}}>Create account</span>
+            <span className="text-[#027315]  cursor-pointer ml-1"  onClick={() => {navigate("/register"), window.scrollTo(0, 0)}}>Create account</span>
           </p>
         </div>
       </div>

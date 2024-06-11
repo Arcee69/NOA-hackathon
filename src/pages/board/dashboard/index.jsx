@@ -18,7 +18,7 @@ const Dashboard = () => {
   const allContest = useSelector(state => state.allContest);
 
 
-  const { user } = userData.data;
+  // const { user } = userData.data;
   const { data } = allContest
 
 

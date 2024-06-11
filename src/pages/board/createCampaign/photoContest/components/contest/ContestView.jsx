@@ -10,7 +10,7 @@ import Power from "../../../../../../assets/images/power.png"
 
 const ContestView = () => {
 
-    const contestData = JSON.parse(sessionStorage.getItem('info'))
+    const contestData = JSON.parse(localStorage.getItem('info'))
 
     const formValidationSchema = Yup.object().shape({
       fullName: Yup.string().required("Full Name is Required"),

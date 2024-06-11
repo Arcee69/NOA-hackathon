@@ -20,8 +20,8 @@ function UserDetailsProvider({ children }) {
       // console.log(res, "kolo")
       if (res?.status === 201) {
         const { token, ...newObject } = res?.data;
-        sessionStorage.setItem("token", token);
-        sessionStorage.setItem("userObj", JSON.stringify(newObject));
+        localStorage.setItem("token", token);
+        localStorage.setItem("userObj", JSON.stringify(newObject));
         setLoading(false)
         // actions.setSubmitting(false);
         toast("Logged In Successfully", {

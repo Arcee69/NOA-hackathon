@@ -17,10 +17,10 @@ export const loginUser = createAsyncThunk(
     async (data, { rejectWithValue }) => {
         try {
             const res = await api.post(appUrls?.LOGIN_URL, data);
-            if (res?.status === 201) {
+            if (res?.status === 200) {
                 const { token, ...newObject } = res?.data;
-                sessionStorage.setItem("token", token);
-                sessionStorage.setItem("userObj", JSON.stringify(newObject));
+                localStorage.setItem("token", token);
+                localStorage.setItem("userObj", JSON.stringify(newObject));
                 toast("Logged In Successfully", {
                     position: "top-right",
                     autoClose: 5000,

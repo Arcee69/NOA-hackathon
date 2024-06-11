@@ -11,13 +11,14 @@ export const ProtectRoutes = () => {
   const { data } = userData
 
     const location = useLocation();
-    const isAuthed = isObjectEmpty(JSON.parse(sessionStorage.getItem("userObj")))     //(data?.user);
+    const isAuthed = isObjectEmpty(JSON.parse(localStorage.getItem("userObj")))     //(data?.user);
+    console.log(isAuthed, "isAuthed")
     return !isAuthed ? (
       <BoardLayout> 
         <Outlet />
       </BoardLayout>
     ) : (
-      <Navigate to="/login" state={{ from: location }} replace />
+      <Navigate to="/" state={{ from: location }} replace />
     );
   };
 
@@ -27,7 +28,7 @@ export const ProtectRoutes = () => {
     const { data } = userData
 
     const location = useLocation();
-    const isAuthed = isObjectEmpty(JSON.parse(sessionStorage.getItem("userObj")))      //(data?.user);
+    const isAuthed = isObjectEmpty(JSON.parse(localStorage.getItem("userObj")))      //(data?.user);
     return isAuthed ? (
       <AuthLayout>
         <Outlet />

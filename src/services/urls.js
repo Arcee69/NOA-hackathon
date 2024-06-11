@@ -1,9 +1,9 @@
 export const appUrls = {
     //AUTH ENDPOINTS
-    LOGIN_URL: "/api/login",
-    SIGNUP_URL: "/api/register",
-    FORGETPASSWORD_URL: "/api/forgotpassword",
-    RESET_PASSWORD_URL: "/api/resetpassword",
+    LOGIN_URL: "/api/auth/signin",
+    SIGNUP_URL: "/api/auth/register",
+    FORGETPASSWORD_URL: "/api/auth/forgot-password",
+    RESET_PASSWORD_URL: "/api/auth/reset-password",
 
     //CREATE CONTEST ENDPOINT
     CREATE_BASIC_INFO_URL: "/api/create",
@@ -13,8 +13,7 @@ export const appUrls = {
     CREATE_ENTRY_URL: "/api/create_entry",
 
     GET_ALL_CONTEST_URL: "/api/fetch_all_contest",
-    GET_ALL_CONTEST_BY_A_PARTICULAR_CREATOR_URL: "/api/fetch_my_contest",
-    GET_LIVE_CONTEST_URL: "/api/fetch_all_live_contest",
+    GET_ALL_OPEN_CONTEST_URL: "/api/contest/open",
     GET_LIVE_CONTEST_BY_A_PARTICULAR_CREATOR_URL: "/api/fetch_all_my_live_contest",
     GET_NUMBER_OF_ALL_LIVE_CONTEST_BY_A_PARTICULAR_CREATOR_URL: "/api/number_of_my_live_contest",
     GET_ALL_PARTICIPANT_URL: "/api/fetch_participants",

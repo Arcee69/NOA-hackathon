@@ -27,7 +27,7 @@ const ContestPage = () => {
         imageDoc: Yup.mixed().required('Contest photo is required'),
       })
 
-    //   const contestData = JSON.parse(sessionStorage.getItem('info'))
+    //   const contestData = JSON.parse(localStorage.getItem('info'))
 
   return (
     <div className='w-full bg-[#F8F8F8]'>

@@ -13,7 +13,7 @@ const Performance = () => {
   const particularContest = useSelector(state => state.allParticularContest)
   const dispatch = useDispatch();
 
-  const { user } = userData.data 
+  // const { user } = userData.data 
   const contestData = particularContest.data 
 
 

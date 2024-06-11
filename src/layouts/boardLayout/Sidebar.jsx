@@ -80,7 +80,7 @@ export default function Sidebar() {
       {
           title: "Manage Contest",
           children: false,
-          itemId: '#', ///manage-contests
+          itemId: '/manage-contests',
           icon: () => (
             <img src={contestIcon} alt="icon" />
           ),

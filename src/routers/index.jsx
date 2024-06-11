@@ -36,17 +36,11 @@ export default function Routers () {
     <div>
         <Routes>
 
-            <Route element={<HomePageLayout />}>
-              {/* <Route path='/' element={<Homepage />} /> */}
-              <Route path='/about' element={<About />} />
-              <Route path='/apps' element={<Apps />} />
-            </Route>
-
             <Route path='/contest-page' element={<ContestPage />} />
             <Route path='/vote' element={<Vote />} />
 
-            <Route element={<BoardLayout /> }> {/* ProtectRoutes */}
-              <Route path="/" element={<Dashboard />} />
+            <Route element={<ProtectRoutes /> }> {/*  */}
+              <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/manage-contests" element={<ManageContest />} />
               <Route path="/manage-contests/manage-entries" element={<ManageEntries />} />
               <Route path="/create-campaign" element={<CreateCampaign />} />
@@ -60,8 +54,8 @@ export default function Routers () {
               <Route path='/manage-judges/judges-info' element={<JudgesInfo />} />
             </Route>
  
-            <Route element={<AuthLayout />}> {/* AuthProtectRoutes */}
-                <Route path='/login' element={<LoginPage />} />
+            <Route element={<AuthProtectRoutes />}> {/*  */}
+                <Route path='/' element={<LoginPage />} />
                 <Route path='/register' element={<SignUp />} />
                 <Route path='/verify-otp' element={<VerifyOtp />} />
                 <Route path='/kyc' element={<Kyc />} />

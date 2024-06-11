@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import Logo from "../../assets/icons/Educontest.svg"
+import Logo from "../../assets/icons/noa_logo.svg"
 
 const Header = () => {
   const navigate = useNavigate()
@@ -9,7 +9,7 @@ const Header = () => {
         <div className='flex flex-row items-center mx-5 lg:p-5'>
             <img
                 src={Logo}
-                alt="educatial-logo"
+                alt="noa-logo"
                 className="cursor-pointer mt-1 xs:flex md:block" //
                 onClick={() => navigate("/")}
             />
