@@ -5,15 +5,9 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import SearchableSelect from '../../../../../components/CustomSelect'
 import addIcon from "../../../../../assets/icons/add.svg"
-import { userDetails } from '../../../../../features/board/createCampain/photoContest/userDetailsSlice'
 
 const UserDetails = ({ setActiveTab }) => {
   
-  // const userData  = useSelector(state => state.userLogin)
-  // const { user } = userData.data;
-
-  // const info = useSelector(state => state.basicInfo)
-  // const { id } = info.data.data;
 
   const dispatch = useDispatch()
 
@@ -21,51 +15,27 @@ const UserDetails = ({ setActiveTab }) => {
   const formValidationSchema = Yup.object().shape({
     age: Yup.number().required("Age Limit is Required"),
     gender: Yup.string().required("Gender is Required"),
-    voteLimit: Yup.number().required("Vote Limit is Required"),
-    entry: Yup.boolean(),
-    customs: Yup.array().of(Yup.object().shape({
-      field: Yup.string().required("Required"),
-    })),
+    entryLimit: Yup.number().required("Entry limit is Required"),
   })
+
+  const entryLimit = [
+    { value: 1, label: 1},
+    { value: 2, label: 2},
+    { value: 3, label: 3}
+  ];
 
   const gender = [
     {  value:"male", label: "Male" },
     {  value:"female", label: "Female" },
   ];
 
-  const voteLimit = [
-    { value: 1, label: "1"},
-    { value: 2, label: "2"},
-    { value: 3, label: "3"}
-  ];
 
-  const submitForm = async (values) => {
-    
-    let contestDetails = [];
-      values?.customs.map((list, index) => {
-        // console.log(list, index, "tete")
-        return contestDetails.push({ 
-          field : list?.field,
-        })
-      })
+  const submitForm = async (values) => {    
+    localStorage.setItem("age_limit", values?.age),
+    localStorage.setItem("gender", values?.gender),
+    localStorage.setItem("entryLimit", values?.entryLimit),
 
-      const entry = values?.entry ? "yes" : "no";
-
-      const data = {
-        user_id: user.id,
-        contest_id: id,
-        age_limit: values?.age,
-        gender: values?.gender,
-        number_entries: values?.voteLimit,
-        daily_limit: entry,
-        submission_details: {...contestDetails}
-      }
-
-      dispatch(userDetails(data))
-      .then(() => {
-        setActiveTab("Winner Selection");
-        window.scrollTo(0, 0)
-      })
+    setActiveTab("Winner Selection")
 
   }
 
@@ -85,9 +55,9 @@ const UserDetails = ({ setActiveTab }) => {
               initialValues={{
                   age: "",
                   gender: "",
-                  voteLimit: "",
-                  entry: false,
-                  customs: [{ field: "" }],
+                  entryLimit: "",
+                  // entry: false,
+                  // customs: [{ field: "" }],
           
               }}
               // validationSchema={formValidationSchema}
@@ -146,32 +116,20 @@ const UserDetails = ({ setActiveTab }) => {
                           </div>
 
                           <div className='flex flex-col lg:w-[500px] gap-2 '>
-                            <label htmlFor='Vote Limit' className='text-sm font-medium text-NEUTRAL-_200'>How many times can a contestant enter</label>
+                            <label htmlFor='Entry Limit' className='text-sm font-medium text-NEUTRAL-_200'>How many times can a contestant enter</label>
                             <SearchableSelect 
-                              options={voteLimit}
-                              name="voteLimit"
+                              options={entryLimit}
+                              name="entryLimit"
                               placeholder="1"
-                              // type="number"
+                              type="number"
                               setFieldValue={setFieldValue}
-                              value={values?.voteLimit}
+                              value={values?.entryLimit}
                               className=" mt-1.5 rounded-md outline-none lg:w-[450px]"
                             />
-                            {errors.voteLimit && touched.voteLimit ? 
-                              <div className='text-RED-_100'>{errors.voteLimit}</div> 
+                            {errors.entryLimit && touched.entryLimit ? 
+                              <div className='text-RED-_100'>{errors.entryLimit}</div> 
                               : null
                             }
-                             <div className='flex flex-col lg:w-[500px] '>
-                                <div className='flex'>
-                                  <input
-                                    type='checkbox'
-                                    name='entry'
-                                    value={values?.entry}
-                                    onChange={handleChange}
-                                  />
-                                  <span className='text-sm font-medium text-NEUTRAL-_200 ml-1'>Daily Limit</span>
-                                </div>
-                                <ErrorMessage name='entry'/>
-                              </div>
 
                           </div>
 
@@ -250,7 +208,7 @@ const UserDetails = ({ setActiveTab }) => {
                       <div className='flex xs:mt-5 md:mt-5 lg:mt-5 gap-4 justify-end'>
                         <button 
                           type="submit" 
-                          className="font-normal bg-primary text-base p-2 rounded-md text-[#fff] border border-solid"
+                          className="font-normal bg-[#027315] text-base p-2 rounded-md text-[#fff] border border-solid"
                           style={{ width: "130px" }}
                         >
                           Continue

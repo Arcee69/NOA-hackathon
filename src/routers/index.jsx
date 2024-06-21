@@ -1,12 +1,10 @@
 import React from 'react'
 import { Route, Routes} from "react-router-dom";
 import AuthLayout from '../layouts/authLayout'
-import HomePageLayout from '../layouts/landingLayout'
+
 import LoginPage from '../pages/auth/login'
 import SignUp from '../pages/auth/signup'
-import About from '../pages/landing/about'
-import Apps from '../pages/landing/apps'
-import Homepage from '../pages/landing/home'
+
 import Kyc from '../pages/auth/signup/components/Kyc'
 import BoardLayout from '../layouts/boardLayout'
 import Dashboard from '../pages/board/dashboard'
@@ -21,13 +19,15 @@ import PasswordConfirmation from '../pages/auth/forgotPassword/PasswordConfirmat
 import { AuthProtectRoutes, ProtectRoutes } from './protectRoutes';
 import VerifyOtp from '../pages/auth/verifyOtp';
 import PasswordReset from '../pages/auth/forgotPassword/PasswordReset';
-import ManageJudges from '../pages/board/manageJudges';
-import JudgesInfo from '../pages/board/manageJudges/components/JudgesInfo';
-import JudgesContests from '../pages/board/judgesContests';
-import ViewContest from '../pages/board/judgesContests/components/ViewContest';
+
+
 import ContestView from '../pages/board/createCampaign/photoContest/components/contest/ContestView';
 import ContestPage from '../pages/contest/ContestPage';
 import Vote from '../pages/vote';
+import ManageAdmins from '../pages/board/manageAdmins';
+import AdminInfo from '../pages/board/manageAdmins/components/AdminInfo';
+import CreateAdmin from '../pages/board/manageAdmins/components/CreateAdmin';
+import VideoContest from '../pages/board/createCampaign/videoContest';
 
 
 export default function Routers () {
@@ -45,13 +45,16 @@ export default function Routers () {
               <Route path="/manage-contests/manage-entries" element={<ManageEntries />} />
               <Route path="/create-campaign" element={<CreateCampaign />} />
               <Route path="/create-campaign/photo-contest" element={<PhotoContest />} />
+              <Route path="/create-campaign/video-contest" element={<VideoContest />} />
               <Route path='/create-campaign/contest-view' element={<ContestView />} />
               <Route path="/analytics" element={<Analytics />} />
               <Route path='/settings' element={<Settings />} />
-              <Route path='/manage-judges' element={<ManageJudges />} />
-              <Route path='/judges-contests' element={<JudgesContests />} />
-              <Route path='/judges-contests/:id' element={<ViewContest />} />
-              <Route path='/manage-judges/judges-info' element={<JudgesInfo />} />
+              <Route path='/manage-admin' element={<ManageAdmins />} />
+              <Route path='/manage-admin/create-admin' element={<CreateAdmin />} />
+              {/* <Route path='/judges-contests' element={<JudgesContests />} /> */}
+              {/* <Route path='/judges-contests/:id' element={<ViewContest />} /> */}
+              {/* <Route path='/manage-judges/judges-info' element={<JudgesInfo />} /> */}
+              <Route path='/manage-admins/admins-info' element={<AdminInfo />} />
             </Route>
  
             <Route element={<AuthProtectRoutes />}> {/*  */}

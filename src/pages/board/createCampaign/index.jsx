@@ -39,7 +39,7 @@ const CreateCampaign = () => {
           </div>
         </div>
                         {/* Second Card */}
-        <div className='w-80 xs:mx-auto md:mx-0 bg-[#fff]  h-[392px] shadow-xl'> {/* h-[412px] */}
+        <div className='w-80 xs:mx-auto md:mx-0 bg-[#fff]  h-[392px] shadow-xl' onClick={() => navigate("/create-campaign/video-contest")}> {/* h-[412px] */}
           <img src={videoIcon} alt="video-icon"/>
           <div className='flex flex-col rounded-bl-3xl rounded-br-3xl p-4'>
             <p className='font-medium text-xl'>Video Contest</p>

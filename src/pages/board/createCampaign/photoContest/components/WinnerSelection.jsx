@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import * as Yup from 'yup'
 import { Formik, Form, FieldArray } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,95 +6,95 @@ import { useDispatch, useSelector } from 'react-redux';
 import {Judges, VotingCriteria} from './criteria/VotingCriteria';
 import addIcon from "../../../../../assets/icons/add.svg";
 import SearchableSelect from '../../../../../components/CustomSelect';
-import { winnerSelection } from '../../../../../features/board/createCampain/photoContest/winnerSelectionSlice';
+import { createContest } from '../../../../../features/board/createCampain/photoContest/createContestSlice';
+import { api } from '../../../../../services/api';
+import { appUrls } from '../../../../../services/urls';
+import { CgSpinner } from 'react-icons/cg';
+
+
 
 const WinnerSelection = ({ setActiveTab }) => {
-
-  // const userData  = useSelector(state => state.userLogin)
-  // const { user } = userData.data;
-
-  // const info = useSelector(state => state.basicInfo)
-  
-  // const { id } = info?.data?.data;
+  const [loading, setLoading] = useState(false)
 
   const dispatch = useDispatch()
 
-  // console.log(id, "sorry")
+  const pic = useSelector(state => state.uploadPic)
+  console.log(pic, "pic")
 
   const schema = Yup.object().shape({
     voting: Yup.array().of(Yup.object().shape({
       criteria: Yup.string().required("Required")
     })),
-    startDate: Yup.date().required("Start Date Is Required"),
-    endDate: Yup.date().required("End Date is Required"),
     votingPanel: Yup.string(),
-    // votingPlatform: Yup.string(),
-    limit: Yup.number(),
-    totalVotes: Yup.boolean(),
-    // judges: Yup.array().of(Yup.object().shape({
-    //   email: Yup.string().email().required("Required")
-    // })),
-
   });
 
-  const voteLimitOptions = [
-    { value: 1, label: "1"},
-    { value: 2, label: "2"},
-    { value: 3, label: "3"}
-  ];
 
-  const platform = [
-    {value: "Educontest", label: "Educontest"},
-  ];
   const panel = [
-    { value: "voting", label: "Voting"},
-    { value: "panel of judges", label: "Panel of Judges"},
-    { value: "voting and panel of judges", label: "Voting and Panel of Judges"},
+    { value: "popular_vote", label: "Popular Vote"},
+    // { value: "admin", label: "Admin"},
   ];
 
   const initialValues = {
     voting: [{ criteria: ""}],
-    startDate: "",
-    endDate: "",
     votingPanel: "",
-    // votingPlatform: "",
-    limit: "",
-    totalVotes: false,
-    judges: [{ email: ""}],
   };
 
-  const submitForm = async(values) => {
+  const gender = localStorage.getItem("gender")
+  const contestName = localStorage.getItem("contestName")
+  const description = localStorage.getItem("description")
+  const startDate = localStorage.getItem("startDate")
+  const endDate = localStorage.getItem("endDate")
+  const imageDoc = localStorage.getItem("imageDoc")
+  const agelimit = localStorage.getItem("age_limit")
+  const type = localStorage.getItem("type")
+  const sponsorName = localStorage.getItem("sponsorName")
+  // const selectionMethod = localStorage.getItem("selection_method")
+  const entryLimit = localStorage.getItem("entryLimit")
+
+  const submitForm = async (values) => {
+    setLoading(true)
+
     let votingCriteria = [];
-    let judgesInvite = [];
       values?.voting.map((list) => {
-        return votingCriteria.push({ 
-          criteria: list?.criteria
-        })
-      })
-      values?.judges.map((list) => {
-        return judgesInvite.push({ 
-          email: list?.email
-        })
+        return votingCriteria.push(list?.criteria)
       })
 
-      const votes = values?.totalVotes ? "yes" : "no";
-      
-      const data = {
-        user_id: user.id,
-        contest_id : id,
-        selection_method: values?.votingPanel,
-        voter_limit: values?.limit,
-        voting_start: values?.startDate,
-        voting_end: values?.endDate,
-        show_total_votes: votes,
-        criteria:{...votingCriteria}
-    }
 
-    dispatch(winnerSelection(data))
-    .then(() => {
-      setActiveTab("Prizes")
-      window.scrollTo(0, 0)
-    })
+
+      const formData = new FormData()
+      formData.append("title", contestName);
+      formData.append("type", type);
+      formData.append("desc", description);
+      formData.append("flier", pic?.data);
+      formData.append("max_entries", Number(entryLimit));
+      formData.append("start_date", startDate);
+      formData.append("end_date", endDate);
+      formData.append("criteria", votingCriteria);
+      formData.append("winner_mode",  values?.votingPanel);
+      formData.append("age_limit",  Number(agelimit));
+      formData.append("gender",  gender);
+      formData.append("sponsor_name",  sponsorName);
+
+      dispatch(createContest(formData))
+      .then((res) => {
+        console.log(res, "slimy")
+        setLoading(false)
+        setActiveTab("Prizes");
+      })
+
+      // try {
+      //   const response = await api.post(appUrls?.CREATE_CONTEST_URL, formData);
+      //   console.log(response, "response")
+      //   if (response.status === 200) {
+      //     setActiveTab("Prizes");
+      //   } else {
+      //     console.error("Failed to create contest", response);
+      //   }
+      // } catch (error) {
+      //   console.error("Error submitting form", error);
+      // }
+
+
 
   }
 
@@ -164,11 +164,11 @@ const WinnerSelection = ({ setActiveTab }) => {
                         </div>
                       )}
                     />
-                    <div className='bg-NEUTRAL-_1000 p-3 mt-8 rounded-md'>
+                    {/* <div className='bg-NEUTRAL-_1000 p-3 mt-8 rounded-md'>
                       <p className='text-base text-[#000] font-medium'>Set Judging/Voting Timeline</p>
-                    </div>
+                    </div> */}
                     
-                    <div className='xs:w-full lg:w-[640px]  lg:h-[70px] flex xs:flex-col lg:flex-row justify-between mt-6'>
+                    {/* <div className='xs:w-full lg:w-[640px]  lg:h-[70px] flex xs:flex-col lg:flex-row justify-between mt-6'>
                       <div className='flex flex-col'>
                         <label htmlFor='Start Date' className='text-sm font-medium text-NEUTRAL-_200'>Start Date</label>
                         <input 
@@ -200,7 +200,7 @@ const WinnerSelection = ({ setActiveTab }) => {
                           : null
                         }
                       </div>
-                    </div>
+                    </div> */}
 
                     <div className='bg-NEUTRAL-_1000 p-3 mt-8 rounded-md'>
                       <p className='text-base text-[#000] font-medium'>Choose Selection Method</p>
@@ -223,97 +223,7 @@ const WinnerSelection = ({ setActiveTab }) => {
                         }
                     </div>
 
-                    <div className='flex lg:flex-row xs:flex-col lg:gap-16'>
-                      {/* <div className='flex flex-col xs:w-full lg:w-[400px]  mt-6'>
-                        <label htmlFor='Voting Platform' className='text-sm font-medium text-NEUTRAL-_200'>Voting Platform</label>
-                        <SearchableSelect 
-                          options={platform}
-                          name="votingPlatform"
-                          placeholder="Tap to select options"
-                          setFieldValue={setFieldValue}
-                          value={values?.votingPlatform}
-                          className=" mt-1.5 rounded-md outline-none xs:w-full lg:w-[400px] h-[44px]"
-                          handleChange={handleChange}
-                        />
-                        <ErrorMessage name="votingPlatform" />
-                      </div> */}
-
-                      <div className='flex flex-col'>
-                        <div className='flex flex-col xs:w-full  lg:w-[400px]  mt-6'>
-                          <label htmlFor='Voting Platform' className='text-sm font-medium text-NEUTRAL-_200'>Enter Limits per Voter</label>
-                          <SearchableSelect 
-                            options={voteLimitOptions}
-                            name="limit"
-                            placeholder="Tap to select options"
-                            setFieldValue={setFieldValue}
-                            value={values?.limit}
-                            className=" mt-1.5 rounded-md outline-none xs:w-full lg:w-[400px] h-[44px]"
-                            handleChange={handleChange}
-                          />
-                          {errors.limit && touched.limit ? 
-                            <div className='text-RED-_100'>{errors.limit}</div> 
-                            : null
-                          }
-                        </div>
-
-                        <div className='flex flex-col lg:w-[400px] mt-2 '>
-                            <div className='flex'>
-                              <input
-                                type='checkbox'
-                                name='totalVotes'
-                                value={values?.totalVotes}
-                                onChange={handleChange}
-                              />
-                              <span className='text-sm font-medium text-NEUTRAL-_200 ml-1'>Show total Votes</span>
-                            </div>
-                            {/* <ErrorMessage name='totalVotes'/> */}
-                          </div>
-                      </div>
-                    </div>
-
-                    {/* <FieldArray
-                      name='judges'
-                      render={arrayHelpers => (
-                        <div className='flex flex-col gap-10'>
-                          <div className='grid xs:grid-cols-1 lg:grid-cols-2 gap-2'>
-                            {
-                              values.judges && values.judges.length > 0 ? (
-                                values.judges.map((judges, index) => (
-                                  <Judges
-                                    key={index} //  + victim?.firstName + victim?.lastName
-                                    index={index}
-                                    handleChange={handleChange}
-                                    setFieldValue={setFieldValue}
-                                    judges={judges}
-                                    arrayHelpers={arrayHelpers}
-                                  />
-                                ))) :
-                                <div></div>
-                            }
-                          </div>
-                          <button
-                            className='bg-NEUTRAL-_900 flex justify-center mt-5 gap-3 items-center rounded-md xs:w-[180px] lg:w-[257px] h-[56px]'
-                            // style={{ height: "56px"}}
-                            type='button'
-                            onClick={() => {
-                              arrayHelpers.push({ email: "" })
-                            }}
-                          >
-                            <img src={addIcon} alt="Invite More" loading='lazy' />
-                            <span className='text-[#fff] xs:text-sm lg:text-lg'>Invite More</span>
-                          </button>
-                        </div>
-                      )}
-                    /> */}
-
-                    <div className='xs:w-full lg:w-[1000px] xs:mt-10 lg:mt-20  lg:h-[116px] bg-[#fff] rounded-xl p-6'>
-                      <h2 className='xs:text-base  md:text-xl text-[#000]'>Voting/Judging Rules </h2>
-                      <p className='xs:text-sm md:text-base text-NEUTRAL-_800'>
-                        EduContest automatically generates Rules for the selected contest. 
-                        Click Edit Fields to customise your details 
-                      </p>
-                    </div>
-
+{/* 
                     <div className="xs:w-full lg:w-[914px] h-[239px] overflow-y-auto bg-[#fff] p-3">
                       <p className="xs:text-sm lg:text-base text-[#000] font-medium">
                         NO PURCHASE IS NECESSARY TO ENTER OR WIN. A PURCHASE DOES NOT INCREASE THE CHANCES OF WINNING
@@ -496,7 +406,7 @@ const WinnerSelection = ({ setActiveTab }) => {
                         </span>
 
                       </p>
-                    </div>
+                    </div> */}
                 
                   </div>
 
@@ -504,16 +414,17 @@ const WinnerSelection = ({ setActiveTab }) => {
                     <button 
                       type="submit" 
                       // onClick={() => }
-                      className="font-normal bg-primary text-base p-2 rounded-md text-[#fff] border border-solid"
+                      className="font-normal bg-[#027315] text-base p-2 flex items-center justify-center rounded-md text-[#fff] border border-solid"
                       style={{ width: "130px" }}
                     >
-                      Continue
+                      <p className='text-[#fff] text-base font-mont_alt  text-center font-medium'>{loading ? <CgSpinner className=" animate-spin text-2xl " /> : "Continue"}</p>
+                      
                     </button>
 
                     <button 
                       type="button" 
                       onClick={() => setActiveTab("User Details")}
-                      className="font-normal border-primary bg-[#fff] rounded-md text-primary text-base p-2 border border-solid"
+                      className="font-normal border-[#027315] font-mont_alt bg-[#fff] rounded-md text-[#027315] text-base p-2 border border-solid"
                       style={{ width: "130px" }}
                     >
                       Cancel

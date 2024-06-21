@@ -14,7 +14,7 @@ export const allFeedData = createAsyncThunk(
     "feedData/allFeedData",
     async (values, { rejectWithValue }) => {
       try {
-        const data = await api.get(appUrls?.GET_LIVE_CONTEST_URL)
+        const data = await api.get(appUrls?.GET_ALL_OPEN_CONTEST_URL)
         return data;
       } catch (error) {
         return rejectWithValue(error);

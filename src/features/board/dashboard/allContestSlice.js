@@ -14,7 +14,7 @@ export const fetchAllContest = createAsyncThunk(
     "allContest/fetchAllContest",
     async (user, { rejectWithValue }) => {
       try {
-        const data = await api.get(appUrls?.GET_NUMBER_OF_ALL_LIVE_CONTEST_BY_A_PARTICULAR_CREATOR_URL + `/${user?.id}`)
+        const data = await api.get(appUrls?.GET_ALL_CONTEST_URL)
         return data;
       } catch (error) {
         return rejectWithValue(error);

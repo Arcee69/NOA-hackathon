@@ -15,8 +15,8 @@ import SearchBar from "./SearchBar";
 // import Spinner from "./Spinner";
 
 const Table2 = ({
-  columns: userColumns,
-  data,
+  columns: userColumns = [],
+  data = [],
   totalNumberOfPages,
   page,
   FilterComponent,
@@ -116,7 +116,7 @@ const Table2 = ({
       return (
         <>
           <tbody className="w-full" {...getTableBodyProps()}>
-            {rows.map((row, i) => {
+            {rows && rows?.map((row, i) => {
               prepareRow(row);
               return (
                 <Fragment key={i}>
@@ -125,7 +125,7 @@ const Table2 = ({
                     className="table-style"
                     {...row.getRowProps()}
                   >
-                    {row.cells.map((cell, i) => {
+                    {row.cells && row.cells.map((cell, i) => {
                       return (
                         <Fragment key={i}>
                           <td
@@ -159,9 +159,9 @@ const Table2 = ({
       }
       <table className="w-full border-spacing-y-4 border-separate" {...getTableProps()}>
         <thead className="w-full">
-          {headerGroups.map((headerGroup, id) => (
+          {headerGroups && headerGroups?.map((headerGroup, id) => (
             <tr key={id} className="table-style" {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column, id) => (
+              {headerGroup.headers && headerGroup.headers.map((column, id) => (
                 <th
                   key={id}
                   className="p-4 text-left font-normal text-sm text-[#949494] text-base "

@@ -93,22 +93,22 @@ export default function Sidebar() {
             <img src={campaignIcon} alt="icon" />
           ),
       },
-      {
-          title: "Manage Submissions",
-          children: false,
-          itemId: '#', ///judges-contests
-          icon: () => (
-            <img src={judgeIcon} alt="icon" />
-          ),
-      },
       // {
-      //     title: "Manage Judges",
+      //     title: "Manage Submissions",
       //     children: false,
-      //     itemId: '/manage-judges',
+      //     itemId: '#', ///judges-contests
       //     icon: () => (
       //       <img src={judgeIcon} alt="icon" />
       //     ),
       // },
+      {
+          title: "Manage Admin",
+          children: false,
+          itemId: '/manage-admin',
+          icon: () => (
+            <img src={judgeIcon} alt="icon" />
+          ),
+      },
       {
           title: "Analytics",
           children: false,
@@ -117,14 +117,14 @@ export default function Sidebar() {
             <img src={analytics} alt="icon" />
           ),
       },
-      // {
-      //     title: "Settings",
-      //     children: false,
-      //     itemId: '/settings',
-      //     icon: () => (
-      //       <img src={settingsIcon} alt="icon" />
-      //     ),
-      // },
+      {
+          title: "Settings",
+          children: false,
+          itemId: '/settings',
+          icon: () => (
+            <img src={settingsIcon} alt="icon" />
+          ),
+      },
   ];
 
   

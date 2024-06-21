@@ -1,9 +1,21 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import Participants from './entriesComponents/Participants';
 import Entry from './entriesComponents/Entries';
+import { useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { getEntriesById } from '../../../../../features/board/entries/getEntriesByIdSlice';
 
 const Entries = () => {
   const [activeTab, setActiveTab] = useState("Participants");
+
+  const { state } = useLocation();
+  const dispatch = useDispatch()
+
+  console.log(state, "OmL")
+
+  useEffect(() => {
+    dispatch(getEntriesById(state?.id))
+  }, [])
 
   const [tabs] = useState([
       {

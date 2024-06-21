@@ -17,9 +17,9 @@ const Participants = () => {
      })
   };
 
-  useEffect(() => {
-    fetchAllParticipant();
-  }, [])
+  // useEffect(() => {
+  //   fetchAllParticipant();
+  // }, [])
 
   console.log(participantData, "father")
 

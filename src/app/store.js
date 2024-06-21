@@ -9,11 +9,15 @@ import signUpReducer from "../features/auth/signUpSlice";
 import allContestReducer from "../features/board/dashboard/allContestSlice";
 import allFeedDataReducer from "../features/board/dashboard/allFeedDataSlice";
 import allParticularContestReducer from "../features/board/dashboard/allParticularContestSlice";
-import basicInfoReducer from "../features/board/createCampain/photoContest/basicInfoSlice";
-import userDetailsReducer from "../features/board/createCampain/photoContest/userDetailsSlice";
-import winnerSelectionReducer from "../features/board/createCampain/photoContest/winnerSelectionSlice";
 import prizesReducer from "../features/board/createCampain/photoContest/prizesSlice";
-import entryReducer from "../features/board/createCampain/photoContest/entrySlice";
+import getAnalyticsReducer from "../features/board/analytics/getAnalyticsSlice";
+import getAdminReducer from "../features/board/admin/getAdminSlice";
+import createContestReducer from "../features/board/createCampain/photoContest/createContestSlice";
+import uploadPhotoReducer from "../features/board/createCampain/photoContest/uploadPhotoSlice";
+import getEntriesByIdReducer from "../features/board/entries/getEntriesByIdSlice";
+import updatePasswordReducer from "../features/board/settings/updatePasswordSlice";
+import updateProfileReducer from "../features/board/settings/updateProfileSlice";
+import getProfileReducer from "../features/board/settings/getProfileSlice";
 
 
     const persistConfig = {
@@ -27,11 +31,15 @@ import entryReducer from "../features/board/createCampain/photoContest/entrySlic
         allContest: allContestReducer,
         allFeedData: allFeedDataReducer,
         allParticularContest: allParticularContestReducer,
-        basicInfo: basicInfoReducer,
-        userDetails: userDetailsReducer,
-        winnerSelection: winnerSelectionReducer,
         prizes: prizesReducer,
-        entry: entryReducer
+        createContest: createContestReducer,
+        analytics: getAnalyticsReducer,
+        admins: getAdminReducer,
+        uploadPic: uploadPhotoReducer,
+        entriesById: getEntriesByIdReducer,
+        updatePassword: updatePasswordReducer,
+        updateProfile: updateProfileReducer,
+        getProfile: getProfileReducer
     });
   
     const persistedReducer = persistReducer(persistConfig, rootReducer)

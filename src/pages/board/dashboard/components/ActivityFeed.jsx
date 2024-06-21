@@ -10,13 +10,15 @@ const ActivityFeed = () => {
     const activityData = useSelector(state => state.allFeedData)
     const dispatch = useDispatch(); 
 
+    console.log(activityData, "activityData")
+
     const { data } = activityData;
-    const feedData = data
+    const feedData = data?.data
 
 
-    // useEffect(() => {
-    //     dispatch(allFeedData());
-    // }, []);
+    useEffect(() => {
+        dispatch(allFeedData());
+    }, []);
 
 
   return (
@@ -24,14 +26,14 @@ const ActivityFeed = () => {
         <div className='flex flex-col'>
             <h2 className='font-medium text-[#000] text-2xl'>Activity Feed</h2>
             <div className='mt-3.5 flex flex-col'>
-                <h3 className='text-sm text-[#000] font-medium'>Today</h3>
+                {/* <h3 className='text-sm text-[#000] font-medium'>Today</h3> */}
                 {
-                    feedData && feedData.map((data) => (
+                    feedData && feedData?.slice(0, 8)?.map((data) => (
                         <div className='flex mt-6 gap-3' key={data?.id}>
                             <HiUsers className='text-PINK-_300'/>
                             <div className="flex flex-col gap-2">
                                 <p className='text-sm'>
-                                    <span className='text-BLUE-_400'>{data?.sponsor_name}</span> created a new contest called <span className='text-BLUE-_400'>{data?.contest_name}</span>
+                                    <span className='text-BLUE-_400'>{data?.sponsor_name || "Admin"}</span> created a new contest called <span className='text-BLUE-_400'>{data?.title}</span>
                                 </p>
                                 <p className='text-sm'>{new Date(data?.created_at).toUTCString()}</p>
                             </div>
@@ -61,7 +63,7 @@ const ActivityFeed = () => {
 
             </div>
             <div className='mt-8 flex flex-col'>
-                <h3 className='text-sm text-[#000] font-medium'>This Week</h3>
+                {/* <h3 className='text-sm text-[#000] font-medium'>This Week</h3> */}
                 {/* <div className='flex mt-6 gap-3'>
                     <HiUsers className='text-PINK-_300'/>
                     <div className="flex flex-col gap-2">
@@ -94,7 +96,7 @@ const ActivityFeed = () => {
 
             </div>
             <div className='mt-8 flex flex-col'>
-                <h3 className='text-sm text-[#000] font-medium'>This Month</h3>
+                {/* <h3 className='text-sm text-[#000] font-medium'>This Month</h3> */}
                 {/* <div className='flex mt-6 gap-3'>
                     <HiUsers className='text-PINK-_300'/>
                     <div className="flex flex-col gap-2">

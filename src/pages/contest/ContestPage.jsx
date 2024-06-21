@@ -18,7 +18,8 @@ const ContestPage = () => {
     const navigate = useNavigate()
 
     
-    const info = useSelector(state => state.basicInfo)
+    const info = useSelector(state => state.createContest)
+    console.log(info, "contestData")
     const contestData = info.data.data;
 
     const formValidationSchema = Yup.object().shape({

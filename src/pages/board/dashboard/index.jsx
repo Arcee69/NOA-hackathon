@@ -17,9 +17,13 @@ const Dashboard = () => {
   const userData  = useSelector(state => state.userLogin)
   const allContest = useSelector(state => state.allContest);
 
+  console.log(allContest, "allContest")
 
   // const { user } = userData.data;
   const { data } = allContest
+
+  const analyticsData = useSelector(state => state.analytics)
+  const analyticsDetails = analyticsData?.data
 
 
   const navigate = useNavigate()
@@ -55,10 +59,10 @@ const Dashboard = () => {
 
 
 
-  // useEffect(() => {
-  //   dispatch(fetchAllContest(user));
+  useEffect(() => {
+    dispatch(fetchAllContest());
     
-  // }, [])
+  }, [])
 
 
   return (
@@ -70,7 +74,7 @@ const Dashboard = () => {
             <img src={addIcon} alt="add-icon" />
             <p className='font-semibold xs:text-sm lg:text-lg text-[#fff]'>Create Campaign</p>
           </button>  h-[879px] */}
-          <button type='button' className='bg-[#027315] flex justify-center gap-3 items-center rounded-md xs:w-[150px] xs:p-2 md:p-0 md:w-[257px] h-[56px]'>
+          <button onClick={() => navigate("/create-campaign")} type='button' className='bg-[#027315] flex justify-center gap-3 items-center rounded-md xs:w-[150px] xs:p-2 md:p-0 md:w-[257px] h-[56px]'>
             <img src={addIcon} alt="add-icon" />
             <p className='font-semibold xs:text-sm lg:text-lg text-[#fff]'>Create Campaign</p>
           </button>
@@ -86,7 +90,7 @@ const Dashboard = () => {
                 <p className='xs:text-[8px] lg:text-xs text-NEUTRAL-_700'>Live Contests</p>
               </div>
               <p className='font-semibold xs:text-2xl lg:text-4xl'>
-                {data === "You have not created any contest" ? 0 : data }
+                {data === "You have not created any contest" ? 0 : analyticsDetails?.contestsCount }
               </p>
             </div>
 
@@ -95,7 +99,7 @@ const Dashboard = () => {
                 <FaUserCircle className="text-PURPLE-_100"/>
                 <p className='xs:text-[8px] lg:text-xs text-NEUTRAL-_700 '>Total Participants</p>
               </div>
-              <p className='font-semibold xs:text-2xl lg:text-4xl'>0</p>
+              <p className='font-semibold xs:text-2xl lg:text-4xl'>{analyticsDetails?.entriesCount}</p>
             </div>
 
             <div className='xs:w-[95px] md:w-[120px] lg:w-[179px] lg:h-[109px] bg-[#fff] flex flex-col gap-2 xs:p-3 md:p-5 rounded-xl'>
@@ -116,26 +120,24 @@ const Dashboard = () => {
                 <img src={ContestImage} alt="Contest-image" className='xs:w-[140px] xs:h-[140px] lg:w-[180px] lg:h-[151px]'/>
               </div>
               <div className='flex flex-col gap- mt-4'>
-                <h2 className='font-medium text-[#000] xs:text-center xs:text-base lg:text-xl'>Photo Contest</h2>
+                <h2 className='font-medium text-[#000] xs:text-center xs:text-base lg:text-xl'>Hackathon Contest</h2>
 
                 <div className='flex xs:mt-3 md:mt-3 lg:mt-3 gap-2 flex-col'>
                   <button 
                     type="button" 
-                    onClick={() => navigate("/manage-contests/manage-entries")}
+                    onClick={() => navigate("/manage-contests")}
                     className="xs:w-[130px] lg:w-[180px] font-normal bg-[#027315] xs:text-sm lg:text-base font-mont_alt p-2 rounded-md text-[#fff] border border-solid"
                     // style={{ width: "150px" }}
                   >
-                    Manage Entries
+                    View Entries
                   </button>
 
-                  <button 
+                  {/* <button 
                     type="button" 
-                    // onClick={() => setActiveTab("User Details")}
                     className="xs:w-[130px] lg:w-[180px] font-normal border-[#027315] bg-[#fff] font-mont_alt rounded-md text-[#027315] xs:text-sm lg:text-base p-2 border border-solid"
-                    // style={{ width: "150px" }}
                   >
                     Edit Contest
-                  </button>
+                  </button> */}
                 </div>
               </div>
             </div>

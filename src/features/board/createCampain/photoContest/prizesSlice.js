@@ -10,14 +10,14 @@ const initialState = {
     error: ""
 }
 
-export const winnerPrizes = createAsyncThunk(
+export const createPrizes = createAsyncThunk(
     "prizes/createPrizes", 
-    async (formData, { rejectWithValue}) => {
+    async ({id, formData}, { rejectWithValue }) => {
         try {
-            const res = await api.post(appUrls?.CREATE_PRIZES_URL, formData)
-            // console.log(res, "lamba")
+            const res = await api.post(`${appUrls?.CREATE_PRIZES_URL}/${id}`, formData)
+            console.log(res, "lamba")
             if(res.status === 200) {
-                toast("Proceed to the next section", {
+                toast("Contest Created Successfully", {
                   position: "top-right",
                   autoClose: 5000,
                   closeOnClick: true,
@@ -25,6 +25,7 @@ export const winnerPrizes = createAsyncThunk(
             }
             return res;
           } catch (err) {
+            console.log(err, "fast")
                 toast(`${err?.data?.message}`, {
                     position: "top-right",
                     autoClose: 5000,
@@ -40,15 +41,15 @@ const prizesSlice = createSlice({
     name: "prizes",
     initialState,
     extraReducers: builder => {
-        builder.addCase(winnerPrizes.pending, state => {
+        builder.addCase(createPrizes.pending, state => {
             state.loading = true
         });
-        builder.addCase(winnerPrizes.fulfilled, (state, action) => {
+        builder.addCase(createPrizes.fulfilled, (state, action) => {
             state.loading = false,
             state.data = action.payload,
             state.error = ""
         });
-        builder.addCase(winnerPrizes.rejected, (state, action) => {
+        builder.addCase(createPrizes.rejected, (state, action) => {
             state.loading = false,
             state.data = [],
             state.error = action.payload

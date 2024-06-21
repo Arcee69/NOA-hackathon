@@ -4,11 +4,15 @@ import Grass from "../../../../../../assets/images/grass.png"
 import Sunset from "../../../../../../assets/images/sunset.png"
 import ModalPop from '../../../../../../components/modal/modalPop'
 import ViewEntriesDetails from './ViewEntriesDetails'
+import { useSelector } from 'react-redux'
 
 const Entry = () => {
   const [openModal, setOpenModal] = useState(false);
   const [data, setData] = useState(null)
 
+  const entriesById = useSelector(state => state.entriesById)
+
+  console.log(entriesById, "entriesById")
 
   const entryData = [
     {
@@ -35,7 +39,7 @@ const Entry = () => {
        <div className='w-full h-full xs:p-4 md:p-0  lg:p-2'>
           <div className='grid xs:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xs:p-0 md:p-4 lg:p-1  xs:mx-4  xs:gap-4 md:gap-2'>
               {
-                  entryData.length > 0 ? entryData.map((data) => (
+                  entriesById?.data?.length > 0 ? entriesById.map((data) => (
                       <div key={data?.id} className='xs:w-full md:w-full lg:w-[209px] lg:h-[263px] bg-white' onClick={() => {setOpenModal(true); setData(data)}}>
                       <img src={data?.image} alt="champions" className='xs:w-full xs:h-[300px] md:w-[300px] md:h-[300px] lg:w-[209px] lg:h-[205px] rounded-t-xl' loading='lazy'/>
                       <div className='p-3 flex flex-col gap-1'>
@@ -45,7 +49,7 @@ const Entry = () => {
                   </div>
                   )) 
                   : 
-                  <div className='flex flex-row justify-center text-center text-3xl font-bold '>Not Available</div>
+                  <div className='flex flex-row justify-center text-center w-full text-3xl font-bold '>No Entries Available</div>
               } 
           </div>
           <div className='flex justify-end my-5 mr-3'>

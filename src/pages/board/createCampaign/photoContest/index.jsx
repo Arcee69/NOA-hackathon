@@ -8,6 +8,7 @@ import Entry from './components/Entry';
 const PhotoContest = () => {
   const [activeTab, setActiveTab] = useState("Basic Info");
 
+
   const [tabs] = useState([
       {
         id: 1,
@@ -78,9 +79,9 @@ const PhotoContest = () => {
           );
         })}
       </div>
-      {activeTab === "Basic Info" && <BasicInfo setActiveTab={setActiveTab}/>}
+      {activeTab === "Basic Info" && <BasicInfo setActiveTab={setActiveTab} />}
       {activeTab === "User Details" && <UserDetails setActiveTab={setActiveTab} />}
-      {activeTab === "Winner Selection" && <WinnerSelection setActiveTab={setActiveTab} />}
+      {activeTab === "Winner Selection" && <WinnerSelection setActiveTab={setActiveTab}  />}
       {activeTab === "Prizes" && <Prizes setActiveTab={setActiveTab} />}
       {/* {activeTab === "Entry" && <Entry  setActiveTab={setActiveTab}/>} */}
     </div>

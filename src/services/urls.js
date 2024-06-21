@@ -6,21 +6,32 @@ export const appUrls = {
     RESET_PASSWORD_URL: "/api/auth/reset-password",
 
     //CREATE CONTEST ENDPOINT
-    CREATE_BASIC_INFO_URL: "/api/create",
-    CREATE_USER_DETAILS_URL: "/api/create_details",
-    CREATE_WINNER_SELECTION_URL: "/api/create_selection",
-    CREATE_PRIZES_URL: "/api/create_prizes",
-    CREATE_ENTRY_URL: "/api/create_entry",
+    CREATE_CONTEST_URL: "/api/contest/create",
+    CREATE_PRIZES_URL: "/api/prizes/create",
 
-    GET_ALL_CONTEST_URL: "/api/fetch_all_contest",
+
+    GET_ALL_CONTEST_URL: "/api/contest",
     GET_ALL_OPEN_CONTEST_URL: "/api/contest/open",
     GET_LIVE_CONTEST_BY_A_PARTICULAR_CREATOR_URL: "/api/fetch_all_my_live_contest",
     GET_NUMBER_OF_ALL_LIVE_CONTEST_BY_A_PARTICULAR_CREATOR_URL: "/api/number_of_my_live_contest",
     GET_ALL_PARTICIPANT_URL: "/api/fetch_participants",
-    GET_ALL_ENTRIES_URL: "/api/fetch_entries",
-};
 
-    // VERIFY_OTP_URL: "/api/auth/verify-otp",
-    // RESET_PASSWORD_WITH_OTP_URL: "/api/auth/reset-password-otp",
-    // SOCIAL_AUTH_URL: "/api/v1/user/social/authenticate", // ?service=google
-    // NEWSLETTER_URL: "/api/v1/newsletter/subscribe",
+    //ENTRIES ENDPOINT
+    GET_ALL_ENTRIES_BY_ID_URL: "/api/entry/",
+
+    //ADMIN ENDPOINT
+    CREATE_ADMIN_URL: "/api/user/register-admin",
+    ENABLE_DISABLE_ADMIN_URL: "/api/user/enable-disable",
+
+    //ANALYTICS ENDPOINT
+    GET_ANALYTICS: "/api/analytics",
+
+    //ADMIN ENDPOINT
+    GET_USERS: "/api/user/all",
+
+    //PROFILE ENDPOINT
+    UPDATE_PROFILE_URL: "/api/user/update",
+    UPDATE_PASSWORD_URL: "/api/user/change-password",
+    FETCH_PROFILE_URL: '/api/user'
+
+};

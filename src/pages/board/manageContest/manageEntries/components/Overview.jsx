@@ -38,7 +38,7 @@ const Overview = () => {
             <p className='font-medium text-lg text-[#000] '>Entries</p>
             <div className='mt-5 gap-2 flex flex-col'>
               <p className='font-normal text-sm'>Total Entries</p>
-              <p className='text-primary font-semibold text-base'>{state?.number_entries}</p>
+              <p className='text-primary font-semibold text-base'>{state?.max_entries || 0} Entries</p>
             </div>
             <div className='mt-5'>
               <p className='font-normal text-sm'>Valid Entries</p>
@@ -47,23 +47,23 @@ const Overview = () => {
           </div>
           <div className='flex flex-col bg-[#fff] border p-3 border-[#F8F8F8] border-8 rounded-md lg:w-[336px] h-[90px]'>
             <p className='font-medium text-base text-[#000] '>Live Link</p>
-            <div className='mt-2 gap-2 flex flex-col cursor-pointer' onClick={() => copyTextToClipboard("https://educontest.educatial.com/contest-page")}>
-              <p className='font-normal text-xs text-NEUTRAL-_700'>https://educontest.educatial.com/contest-page</p> {/* http://localhost:5173/contest-page  */}
+            <div className='mt-2 gap-2 flex flex-col cursor-pointer' onClick={() => copyTextToClipboard(" https://noawebsite.netlify.app/hackathon")}>
+              <p className='font-normal text-xs text-NEUTRAL-_700'> https://noawebsite.netlify.app/hackathon</p> {/* http://localhost:5173/contest-page  */}
             </div>
           </div>
         </div>
 
-        <div className='bg-[#fff] flex flex-col lg:w-[600px] lg:h-[838px] lg:mt-24 rounded-md'>
+        <div className='bg-[#fff] flex flex-col lg:w-[600px] lg:h-[738px] lg:mt-24 rounded-md'>
             <div className='w-full h-[50px] flex  border-b border-[#D1D3D4]'>
               <button className='w-[300px] flex p-4 justify-center border-[#D1D3D4] text-YELLOW-_100 border-r'>Enter</button>
               <button className='w-[300px] flex p-4 justify-center text-NEUTRAL-_1200'>Vote</button>
             </div>
             <div className='w-full flex flex-col items-center mt-14 justify-center'>
               <p className='font-medium text-NEUTRAL-_1200 text-2xl' >{state?.category}</p>
-              <img src={state?.contest_photo || ContestImage} alt='contest-flyer' className='w-[200px] h-[200px]'/>
+              <img src={state?.flier || ContestImage} alt='contest-flyer' className='w-[200px] h-[200px]'/>
             </div>
             <p className='text-base lg:text-center xs:mx-3 lg:mx-auto mt-10 flex flex-col lg:w-[554px] lg:h-[120px] text-NEUTRAL-_1200'>
-              {state?.contest_description}
+              {state?.desc}
               {/* Enter our photo contest for a chance to showcase your creativity and win cash prizes. 
               Submit your best photos in any category and impress our judges with your technical skills, originality, 
               and emotional impact. The top three winners will be featured on our website and social media. Good luck! */}
@@ -137,13 +137,7 @@ const Overview = () => {
                 )}
               </Formik>
           </div>
-          <div className='w-full h-[60px] flex  border-t border-[#D1D3D4]'>
-            <button className='w-[300px] flex p-4 xs:text-sm md:text-base justify-center border-[#D1D3D4] text-[#000] border-r'>Terms and Conditions</button>
-            <button className='w-[300px] flex p-4 justify-center items-center text-NEUTRAL-_1200'>
-                <img src={Logo} alt="logo" className='w-[38px] h-[40px]'/> 
-                <img src={Power} alt="logo" className=''/> 
-            </button>
-          </div>
+      
         </div>
       </div>
     </div>

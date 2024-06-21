@@ -7,23 +7,19 @@ import Table2 from '../../../components/TableTwo';
 import { api } from '../../../services/api'
 import { appUrls } from '../../../services/urls'
 
+const ITEMS_PER_PAGE = 5;  // Set the number of items per page
 
 const ManageContest = () => {
   const [liveContestData, setLiveContestData] = useState([])
-
-  const navigate = useNavigate()
-
-  const userData = JSON.parse(localStorage.getItem('userObj'))
-
-  const { user } = userData 
-
+  const [page, setPage] = useState(1)
+  const [totalNumberOfPages, setTotalNumberOfPages] = useState(1)
 
   const fetchLiveContestData = async() => {
- 
     await api.get(appUrls?.GET_ALL_OPEN_CONTEST_URL)
     .then((res) => {
       console.log(res, "data")
       setLiveContestData(res?.data?.data)
+      setTotalNumberOfPages(Math.ceil(res?.data?.data.length / ITEMS_PER_PAGE));
     })
     .catch((err) => {
       console.log(err, "err")
@@ -34,33 +30,18 @@ const ManageContest = () => {
     fetchLiveContestData();
   }, [])
 
-  const contestData = [
-    {
-      id: 1,
-      participant: "Photo Contest",
-      email: 10,
-      entries: 1,
-      dateCreated: "04/04/23",
-      status: "Valid"
-    },
-    {
-      id: 2,
-      participant: "Video Contest",
-      email: 10,
-      entries: 1,
-      dateCreated: "04/04/23",
-      status: "Invalid"
-    },
+  const handlePageChange = (newPage) => {
+    setPage(newPage);
+  };
 
-  ];
 
   const columns = [
     { 
-        Header: "Participant", 
-        accessor: "participant" 
+        Header: "Title", 
+        accessor: "title" 
     },
-    {   Header: "Email", 
-        accessor: "email" 
+    {   Header: "Type", 
+        accessor: "type" 
     },
     { 
         Header: "Entries", 
@@ -78,15 +59,15 @@ const ManageContest = () => {
 
   console.log(liveContestData, "liveContestData");
 
-  const data = contestData.map((contest) => ({
-    participant:  
+  const data = liveContestData?.map((contest) => ({
+    title:  
         <div className='flex items-center' >
-            <p className='text-sm font-medium text-[#1D2939]'>{contest.participant}</p>
+            <p className='text-sm font-medium text-[#1D2939]'>{contest.title}</p>
         </div>,
-    email: <div className='text-base font-semibold text-[#333333]'>{contest.email}</div>,
-    entries: <div className='text-base font-semibold text-[#333333]'>{contest.entries}</div>,
-    dateCreated: <div className='text-base font-semibold text-[#333333]'>{contest.dateCreated}</div>,
-    status: <div className='text-base font-semibold text-[#333333]'>{contest.status}</div>,
+    type: <div className='text-base font-semibold text-[#333333]'>{contest.type}</div>,
+    entries: <div className='text-base font-semibold text-[#333333]'>{contest.max_entries || 0}</div>,
+    dateCreated: <div className='text-base font-semibold text-[#333333]'>{new Date(contest.created_at).toDateString()}</div>,
+    status: <div className='text-base font-semibold text-[#333333]'>{contest.open === 1 ? "Active" : "Inactive" }</div>,
 }
 
 ))
@@ -115,36 +96,31 @@ const ManageContest = () => {
       <div className='mt-5 xs:mx-2 md:mx-0'>
         <h2 className='font-bold text-base text-[#000]'>Live Contests</h2>
 
-        <div className='w-full  overflow-x-scroll'>
-          <div className='w-[100vw] flex gap-4 '>
+        <div className='w-full overflow-x-scroll'>
+          <div className='w-[150vw] flex gap-4'>
             {
               liveContestData?.length > 0 
               ? (
-                liveContestData?.map((contestData) => (
-                  <div className='bg-[#fff] xs:w-full md:w-[458px] md:h-[242px] flex flex-row rounded xs:p-4 lg:p-0 gap-5 mt-4 items-center align-center justify-center' key={contestData?.id}>
-                    <div className='shadow-xl'>
-                      <img src={ContestImage || contestData?.flier} alt="Contest-image" className='xs:w-[140px] xs:h-[140px] lg:w-[180px] lg:h-[151px]'/>
+                liveContestData?.slice(0, 5)?.map((contestData) => (
+                  <div className='bg-[#fff] xs:w-full md:w-[458px] md:h-[242px] flex flex-row rounded p-4 gap-5 mt-4 items-center justify-center' key={contestData?.id}>
+                    <div className='shadow-xl flex-shrink-0'>
+                      <img src={contestData?.flier || ContestImage} alt="Contest-image" className='w-[180px] h-[151px] object-cover'/>
                     </div>
-                    <div className='flex flex-col gap- mt-4'>
-                      <h2 className='font-medium text-[#000] xs:text-center xs:text-base lg:text-xl'>{contestData?.type}</h2>
+                    <div className='flex flex-col gap-4 mt-4 items-center'>
+                      <h2 className='font-medium text-[#000] text-center text-xl'>{contestData?.type}</h2>
 
-                      <div className='flex xs:mt-3 md:mt-3 lg:mt-3 gap-2 items-center flex-col'>
+                      <div className='flex flex-col gap-2 items-center'>
                         <Link 
-                          // type="button" 
                           to="/manage-contests/manage-entries" 
                           state={contestData} 
-                          // onClick={() => { navigate("/manage-contests/manage-entries"); state={contestData} }}
-                          className="xs:w-[130px] lg:w-[150px] text-center font-normal bg-[#027315] xs:text-sm lg:text-base p-2 rounded-md text-[#fff] border border-solid"
-                          // style={{ width: "150px" }}
+                          className="w-[130px] text-center font-normal bg-[#027315] text-base p-2 rounded-md text-[#fff] border border-solid"
                         >
-                          Manage Entries
+                          Manage
                         </Link>
 
                         <button 
                           type="button" 
-                          // onClick={() => setActiveTab("User Details")}
-                          className="xs:w-[130px] lg:w-[150px] font-normal border-primary bg-[#fff] rounded-md text-primary xs:text-sm lg:text-base p-2 border border-solid"
-                          // style={{ width: "150px" }}
+                          className="w-[130px] font-normal border-primary bg-[#fff] rounded-md text-primary text-base p-2 border border-solid"
                         >
                           Edit Contest
                         </button>
@@ -153,9 +129,8 @@ const ManageContest = () => {
                   </div>
                 ))
               ) 
-              : <div>No Live Contest </div>
+              : <div>No Live Contest</div>
             }
-
           </div>
         </div>
 
@@ -163,7 +138,13 @@ const ManageContest = () => {
       </div>
 
       <div className=" xs:mt-10 lg:mt-20 xs:mx-2 md::mx-auto">
-        <Table2 data={data}  columns={columns}/>
+        <Table2 
+          data={data}  
+          columns={columns}
+          totalNumberOfPages={totalNumberOfPages}
+          page={page}
+          handlePaginationChange={handlePageChange}
+        />
       </div>
 
     </div>

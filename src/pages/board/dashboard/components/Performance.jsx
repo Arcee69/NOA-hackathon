@@ -10,11 +10,13 @@ import { fetchAllParticularContest } from '../../../../features/board/dashboard/
 const Performance = () => {
   
   const userData  = useSelector(state => state.userLogin)
-  const particularContest = useSelector(state => state.allParticularContest)
+  const allOpenContest = useSelector(state => state.allFeedData)
   const dispatch = useDispatch();
 
+  console.log(allOpenContest, "allOpenContest")
+
   // const { user } = userData.data 
-  const contestData = particularContest.data 
+  const contestData = allOpenContest.data?.data 
 
 
   // useEffect(() => {
@@ -53,12 +55,12 @@ const Performance = () => {
             accessor: "category" 
         },
         { 
-            Header: "Views", 
-            accessor: "views" 
+            Header: "Entries", 
+            accessor: "entries" 
         },
         {   
-            Header: "Participation", 
-            accessor: "participation" 
+            Header: "Age Limit", 
+            accessor: "age" 
         },
         { 
             Header: "Votes", 
@@ -66,16 +68,16 @@ const Performance = () => {
         },
       ];
 
-      const data = performanceData?.map((data) => ({ //contestData
+      const data = contestData?.map((data) => ({ //contestData
         contests:  
             <div className='flex flex-row gap-2 items-center' >
                 {/* <img src={data?.contest_photo || analyticsPhoto } alt='contest-image' className='w-14 h-14'/> */}
-                    <p className='text-sm font-medium text-[#1D2939]'>{data?.contest_name}</p>
+                    <p className='text-sm font-medium text-[#1D2939]'>{data?.title}</p>
             </div>,
-        category: <div className='text-base font-semibold text-[#333333]'>{data?.category}</div>,
-        views: <div className='text-base font-semibold text-[#333333]'>{data?.number_entries}</div>,
-        participation: <div className='text-base font-semibold text-[#333333]'>{data?.age_limit}</div>,
-        votes: <div className='text-base font-semibold text-[#333333]'>{data?.limits_per_vote}</div>,
+        category: <div className='text-base font-semibold text-[#333333]'>{data?.type}</div>,
+        entries: <div className='text-base font-semibold text-[#333333]'>{data?.max_entries || 0}</div>,
+        age: <div className='text-base font-semibold text-[#333333]'>{data?.age_limit || "N/A"}</div>,
+        votes: <div className='text-base font-semibold text-[#333333]'>{data?.limits_per_vote || 0}</div>,
     }
     
     ))  

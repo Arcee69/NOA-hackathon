@@ -12,40 +12,40 @@ import {
 import CalenderDropdown from '../../../../components/CalendarDropdown';
 import { Divider } from '@material-ui/core';
 
-const BarReport = () => {
-    const data = [
+const BarReport = ({ data }) => {
+    const contestData = [
         {
-          "name": "Apr 2",
-          "Participants": 50,
-          "Contest": 2,
+          "name": "Jan",
+          "Participants": data?.usersCount,
+          "Contest": data?.contestsCount,
         },
         {
-          "name": "Apr 3",
+          "name": "Feb",
           "Participants": 10,
           "Contest": 20,
         },
         {
-          "name": "Apr 4",
+          "name": "Mar",
           "Participants": 20,
           "Contest": 12,
         },
         {
-          "name": "Apr 5",
+          "name": "Apr",
           "Participants": 20,
           "Contest": 20,
         },
         {
-          "name": "Apr 6",
+          "name": "May",
           "Participants": 70,
           "Contest": 20,
         },
         {
-          "name": "Apr 7",
+          "name": "Jun",
           "Participants": 10,
           "Contest": 20,
         },
         {
-          "name": "Apr 8",
+          "name": "Jul",
           "Participants": 10,
           "Contest": 30,
         },
@@ -65,12 +65,12 @@ const BarReport = () => {
         <div className='flex flex-row w-6/12 justify-between'>
           <div className='flex flex-col gap-2'>
             <p className='text-sm text-NEUTRAL-_700 font-medium'>Participants</p>
-            <p className='text-xl font-bold text-PURPLE-_100'>172</p>
+            <p className='text-xl font-bold text-PURPLE-_100'>{data?.usersCount}</p>
           </div>
           <Divider flexItem orientation='vertical' />
           <div className='flex flex-col gap-2'>
             <p className='text-sm text-NEUTRAL-_700 font-medium'>Contest</p>
-            <p className='text-xl font-bold text-YELLOW-_100'>300</p>
+            <p className='text-xl font-bold text-YELLOW-_100'>{data?.contestsCount}</p>
           </div>
         </div>
         <div className='w-6/12 flex justify-end'>
@@ -79,7 +79,7 @@ const BarReport = () => {
       </div>
       <Divider  />
          <ResponsiveContainer width="98%" height="80%" className="mt-5">
-            <BarChart width="" height={128} data={data}>
+            <BarChart width="" height={128} data={contestData}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" />
               <YAxis />

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
   ResponsiveContainer, 
   LineChart, 
@@ -11,41 +11,55 @@ import {
 } from 'recharts';
 import { Divider } from '@material-ui/core';
 import CalenderDropdown from '../../../../components/CalendarDropdown';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchAnalytics } from '../../../../features/board/analytics/getAnalyticsSlice';
 
 const LineReport = () => {
-  const data = [
+
+  const dispatch = useDispatch() 
+
+  const key = import.meta.env.VITE_APP_SECRET_KEY
+
+  useEffect(() => {
+    dispatch(fetchAnalytics(key))
+  },[])
+
+  const analyticsData = useSelector(state => state.analytics)
+  const { data } = analyticsData
+
+  const contestData = [
     {
-      "name": "Apr 2",
-      "Participants": 50,
-      "Views": 2,
+      "name": "Jan",
+      "Participants": data?.entriesCount,
+      "Views": data?.votesCount,
     },
     {
-      "name": "Apr 3",
+      "name": "Feb",
       "Participants": 10,
       "Views": 20,
     },
     {
-      "name": "Apr 4",
+      "name": "Mar",
       "Participants": 20,
       "Views": 12,
     },
     {
-      "name": "Apr 5",
+      "name": "Apr",
       "Participants": 20,
       "Views": 20,
     },
     {
-      "name": "Apr 6",
+      "name": "May",
       "Participants": 70,
       "Views": 20,
     },
     {
-      "name": "Apr 7",
+      "name": "Jun",
       "Participants": 10,
       "Views": 20,
     },
     {
-      "name": "Apr 8",
+      "name": "Jul",
       "Participants": 10,
       "Views": 30,
     },
@@ -58,19 +72,19 @@ const LineReport = () => {
     setStartDate(`&startDate=${convertedStartDate}`);
     setEndDate(`endDate=${convertedEndDate}`);
   }
-
+  
   return (
     <div className='bg-[#fff] xs:w-full lg:w-full rounded-xl'>
       <div className='flex flex-row w-full justify-between p-4'>
         <div className='flex flex-row w-6/12 justify-between'>
           <div className='flex flex-col gap-2'>
             <p className='text-sm text-NEUTRAL-_700 font-medium'>Participants</p>
-            <p className='text-xl font-bold text-PURPLE-_100'>172</p>
+            <p className='text-xl font-bold text-PURPLE-_100'>{data?.usersCount}</p>
           </div>
           <Divider flexItem orientation='vertical' />
           <div className='flex flex-col gap-2'>
-            <p className='text-sm text-NEUTRAL-_700 font-medium'>Views</p>
-            <p className='text-xl font-bold text-BLUE-_200'>300</p>
+            <p className='text-sm text-NEUTRAL-_700 font-medium'>Votes</p>
+            <p className='text-xl font-bold text-BLUE-_200'>{data?.votesCount}</p>
           </div>
         </div>
         <div className='w-6/12 flex justify-end'>
@@ -79,7 +93,7 @@ const LineReport = () => {
       </div>
       <Divider  />
        <ResponsiveContainer width="98%" height="80%" className="mt-5">
-            <LineChart width="" height={128} data={data}   margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+            <LineChart width="" height={128} data={contestData}   margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" />
               <YAxis />

@@ -5,15 +5,17 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import uploadLogo from "../../../../../assets/icons/uploadLogo.svg"
 import Button from "../../../../../components/Button"
-import { basicInfo } from '../../../../../features/board/createCampain/photoContest/basicInfoSlice'
+import SearchableSelect from '../../../../../components/CustomSelect'
+import { uploadFile } from '@uploadcare/upload-client'
+import { uploadPhoto } from '../../../../../features/board/createCampain/photoContest/uploadPhotoSlice'
+
 
 const BasicInfo = ({ setActiveTab }) => {
+
 
   const userData  = useSelector(state => state.userLogin)
   const dispatch = useDispatch()
 
-  const info = useSelector(state => state.basicInfo)
-  console.log(info, "basic")
 
   const { user } = userData.data;
 
@@ -26,30 +28,64 @@ const BasicInfo = ({ setActiveTab }) => {
     description: Yup.mixed().required("Contest Description is Required")
   });
 
-
-  const submitForm =  (values) => {
-    const { contestName, startDate, endDate, sponsorName, imageDoc, description } = values;
-    const categoryName = "Photo Contest";
-
-    setActiveTab("User Details");
-
-    return
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    console.log(file, "file")
+    dispatch(uploadPhoto(file))
   
-    const formData = new FormData();
-    formData.append("contest_name", contestName);
-    formData.append("user_id", user?.id);
-    formData.append("start_date", startDate);
-    formData.append("end_date", endDate);
-    formData.append("sponsor_name", sponsorName);
-    formData.append("contest_photo", imageDoc);
-    formData.append("category", categoryName);
-    formData.append("contest_description", description);
+    // if (file) {
+    //   const reader = new FileReader();
+    //   reader.onloadend = () => {
+    //     const fileUpload = reader.result;
+    //     setUploadFile(fileUpload);
+    //     localStorage.setItem('imageDoc', fileUpload);
+    //   };
+    //   reader.readAsDataURL(file);
+    // }
+  };
 
-    dispatch(basicInfo(formData))
-    .then(() => {
-        setActiveTab("User Details");
-        window.scrollTo(0, 0)
-    })
+
+  const submitForm =  async (values) => {
+    const { contestName, startDate, endDate, sponsorName, description } = values;
+
+      // if (imageDoc) {
+      //   const result = await uploadFile(
+      //     imageDoc,
+      //     {
+      //       publicKey: import.meta.env.VITE_APP_UPLOAD_API_PUBLIC_KEY,
+      //       store: 'auto',
+      //       metadata: {
+      //         subsystem: 'js-client',
+      //       }
+      //     }
+      //   )
+      //   console.log(result?.cdnUrl, "result")
+      //   if (result?.cdnUrl) {
+      //     localStorage.setItem("contestName", contestName),
+      //     localStorage.setItem("startDate", startDate),
+      //     localStorage.setItem("endDate", endDate),
+      //     localStorage.setItem("description", description),
+      //     localStorage.setItem("type", "picture"),
+      //     localStorage.setItem("sponsorName", sponsorName),
+      
+      //     setActiveTab("User Details");
+
+      //   }
+      // }
+
+          localStorage.setItem("contestName", contestName),
+          localStorage.setItem("startDate", startDate),
+          localStorage.setItem("endDate", endDate),
+          localStorage.setItem("description", description),
+          localStorage.setItem("type", "document"),
+          localStorage.setItem("sponsorName", sponsorName),
+      
+          setActiveTab("User Details");
+    
+
+
+
+
       
   }
 
@@ -184,7 +220,8 @@ const BasicInfo = ({ setActiveTab }) => {
                                   name="imageDoc"
                                   value={values?.imageDoc}
                                   className="opacity-0"
-                                  onChange={(e) => {setFieldValue("imageDoc", e.target.files[0])}}
+                                  // onChange={(e) => {setFieldValue("imageDoc", e.target.files[0])}}
+                                  onChange={(e) => {handleFileChange(e), setFieldValue("imageDoc", e.target.files[0])}}
                                   id="upload"
                                   accept={"image/*"}
                                   multiple={false}
@@ -220,7 +257,7 @@ const BasicInfo = ({ setActiveTab }) => {
                           <div className='p-3 my-4'>
                               <h2 className='text-xl text-[#000]'>Terms and Conditions</h2>
                               <p className='text-base text-NEUTRAL-_800'>
-                                EduContest automatically generates Terms & Conditions for you. 
+                                NOA automatically generates Terms & Conditions for you. 
                                 Click Edit Fields to customise your details
                               </p>
                           </div>

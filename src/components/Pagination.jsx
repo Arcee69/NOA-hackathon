@@ -14,7 +14,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 export default function PaginationControlled({
-  totalNumberOfPages = 1,
+  totalNumberOfPages,
   handlePaginationChange,
   page,
 }) {
