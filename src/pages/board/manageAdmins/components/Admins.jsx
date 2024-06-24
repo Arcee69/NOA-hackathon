@@ -14,29 +14,6 @@ const Admins = () => {
     const adminData = allAdmins?.data?.data?.user
     console.log(adminData, "adminData")
 
-    const judgesData = [
-        {
-            id: 1,
-            image: firstJudge,
-            name: "Meshack Ojodu",
-            email: "Ojodumeshack@gmail.com",
-            assigned: 2,
-            ongoing: 1,
-            completed: 1,
-            status: "Active"
-        },
-        {
-            id: 1,
-            image: firstJudge,
-            name: "Clarity Oshodi",
-            email: "clarityoshodi@gmail.com",
-            assigned: 1,
-            ongoing: 1,
-            completed: 0,
-            status: "Inactive"
-        },
-
-    ];
 
     const menuOptions = [<Link to="/manage-admins/admins-info">View</Link>]
 
@@ -93,18 +70,18 @@ const Admins = () => {
         admin:  
             <div className='flex flex-row gap-2' >
                 <div className='flex flex-col gap-1'>
-                    <p className='text-sm font-medium text-[#1D2939]'>{admins?.name}</p>
-                    <p className='text-sm font-normal text-[#667085]'>{admins?.email}</p>
+                    <p className='text-sm font-medium text-[#1D2939]'>{admins.name}</p>
+                    <p className='text-sm font-normal text-[#667085]'>{admins.email}</p>
                 </div>
             </div>,
             date: <div className='text-base font-semibold text-[#333333]'>{new Date(admins?.created_at)?.toDateString() }</div>,
-            role: <div className='text-base font-semibold text-[#333333]'>{admins?.role}</div>,
-            status: <div className={`${admins?.status === 1 ? "text-[#027315]" : "text-[#f00]"} text-base font-semibold`}>{admins?.status === 1 ? "Active" : "Inactive"}</div>,
+            role: <div className='text-base font-semibold text-[#333333]'>{admins.role}</div>,
+            status: <div className={`${admins.status === 1 ? "text-[#027315]" : "text-[#f00]"} text-base font-semibold`}>{admins?.status === 1 ? "Active" : "Inactive"}</div>,
             action: 
                 <TableMenu
                     options={[
                         // <Link to="/manage-admins/admins-info" state={admins}>View</Link>,
-                        <p onClick={() => handleEnableDisable(admins?.id, admins?.status)} className={`${admins?.status === 1 ? "text-[#f00]" : "text-[#027315]"}`}>{admins?.status === 1 ? "Deactivate" : "Activate"}</p>
+                        <p onClick={() => handleEnableDisable(admins.id, admins.status)} className={`${admins?.status === 1 ? "text-[#f00]" : "text-[#027315]"}`}>{admins?.status === 1 ? "Deactivate" : "Activate"}</p>
                     ]} 
                 />
         }

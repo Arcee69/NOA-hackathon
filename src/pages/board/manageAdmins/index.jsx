@@ -24,10 +24,7 @@ const ManageAdmins = () => {
                     <img src={addIcon} alt="add-icon" />
                     <p className='font-semibold font-mont_alt xs:text-sm lg:text-base text-[#fff]'>Add Admin</p>
                 </button>  
-                {/* <button type='button' className='bg-YELLOW-_100 flex justify-center gap-3 items-center rounded-md xs:w-[150px] xs:p-2 md:p-0 md:w-[257px] h-[56px]'>
-                    <img src={addIcon} alt="add-icon" />
-                    <p className='font-semibold xs:text-sm lg:text-lg text-[#fff]'>Upgrade Now</p>
-                </button> */}
+          
             </div>
         </div>
         <Admins />

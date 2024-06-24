@@ -37,13 +37,13 @@ const apiResource = () => {
         async (error) => {
             if (error?.response?.status === 403) {
                 TokenService.removeUser();
-                window.location = "/login";
+                window.location = "/";
             } else if (error?.response?.status === 401) {
                 const originalConfig = error.config;
                 // call refresh token
                 TokenService.removeUser();
                 if (originalConfig.url !== `${appUrls.LOGIN_URL}`) {
-                    window.location = "/login";
+                    window.location = "/";
                 }
                 if (originalConfig.url !== `${appUrls.LOGIN_URL}` && error?.response) {
                     // Access Token was expired
