@@ -11,6 +11,7 @@ import Performance from './components/Performance'
 import ActivityFeed from './components/ActivityFeed'
 
 import { fetchAllContest } from '../../../features/board/dashboard/allContestSlice'
+import { fetchAllAdmins } from '../../../features/board/admin/getAdminSlice'
 
 const Dashboard = () => {
 
@@ -28,6 +29,10 @@ const Dashboard = () => {
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(fetchAllAdmins())
+  }, [])
 
 //   const findTotal = (my_list) => {
 //     const even = [];

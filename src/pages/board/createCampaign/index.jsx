@@ -50,7 +50,7 @@ const CreateCampaign = () => {
           </div>
         </div>
                         {/* Third Card w-[334px]*/}
-        <div className='w-80 xs:mx-auto md:mx-0 bg-[#fff] h-[392px] shadow-xl'> {/* h-[412px] */}
+        {/* <div className='w-80 xs:mx-auto md:mx-0 bg-[#fff] h-[392px] shadow-xl'> {/* h-[412px] 
           <img src={essayIcon} alt="essay-icon"/>
           <div className='flex flex-col rounded-bl-3xl rounded-br-3xl p-4'>
             <p className='font-medium text-xl'>Essay Contest</p>
@@ -60,7 +60,7 @@ const CreateCampaign = () => {
               sustainability, social justice, and more.
             </p>
           </div>
-        </div>
+        </div> */}
                         {/* Fourth Card */}
         {/* <div className='w-80 xs:mx-auto md:mx-0 bg-[#fff] h-[392px] shadow-xl'> {/* h-[412px] 
           <img src={visualIcon} alt="visual-icon"/>

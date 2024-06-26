@@ -27,6 +27,7 @@ const UserDetails = ({ setActiveTab }) => {
   const gender = [
     {  value:"male", label: "Male" },
     {  value:"female", label: "Female" },
+    {  value:"both", label: "Both" },
   ];
 
 

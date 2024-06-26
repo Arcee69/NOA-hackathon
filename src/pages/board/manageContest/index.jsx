@@ -6,13 +6,23 @@ import ContestImage from "../../../assets/images/contest.png"
 import Table2 from '../../../components/TableTwo';
 import { api } from '../../../services/api'
 import { appUrls } from '../../../services/urls'
+import TableMenu from '../../../components/TableMenu';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import { fetchAllContest } from '../../../features/board/dashboard/allContestSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 const ITEMS_PER_PAGE = 5;  // Set the number of items per page
 
 const ManageContest = () => {
   const [liveContestData, setLiveContestData] = useState([])
+  const [deleteContestLoading, setDeleteContestLoading] = useState(false)
+  const [closeContestLoading, setCloseContestLoading] = useState(false)
+  const [openContestLoading, setOpenContestLoading] = useState(false)
   const [page, setPage] = useState(1)
   const [totalNumberOfPages, setTotalNumberOfPages] = useState(1)
+
+  const dispatch = useDispatch()
 
   const fetchLiveContestData = async() => {
     await api.get(appUrls?.GET_ALL_OPEN_CONTEST_URL)
@@ -28,7 +38,15 @@ const ManageContest = () => {
 
   useEffect(() => {
     fetchLiveContestData();
-  }, [])
+  }, [deleteContestLoading])
+
+  useEffect(() => {
+    dispatch(fetchAllContest())
+  }, [closeContestLoading, deleteContestLoading, openContestLoading])
+
+  const allContest = useSelector(state => state.allContest)
+  console.log(allContest, "allContest")
+  const contest = allContest?.data?.data
 
   const handlePageChange = (newPage) => {
     setPage(newPage);
@@ -55,11 +73,88 @@ const ManageContest = () => {
         Header: "Status", 
         accessor: "status" 
     },
+    { 
+      Header: "Action", 
+      accessor: "action" 
+    },
   ];
+
+
+  const handleDeleteContest = async (id) => {
+    setDeleteContestLoading(true)
+    await api.delete(`https://api.hackathon.noa.gov.ng/api/contest/delete/${id}`)
+    .then((res) => {
+      console.log(res, "pass")
+      setDeleteContestLoading(false)
+      toast(`${res?.data?.message}`, {
+        position: "top-right",
+        autoClose: 5000,
+        closeOnClick: true,
+      });
+    })
+    .catch((err) => {
+      console.log(err, "kick")
+      setDeleteContestLoading(false)
+      toast(`${err.data.message}`, {
+        position: "top-right",
+        autoClose: 5000,
+        closeOnClick: true,
+      })
+    })
+  }
+
+  const handleCloseContest = async (id) => {
+    setCloseContestLoading(true)
+    await api.post(`https://api.hackathon.noa.gov.ng/api/contest/close/${id}`)
+    .then((res) => {
+      console.log(res, "pass")
+      setCloseContestLoading(false)
+      toast(`${res?.data?.message}`, {
+        position: "top-right",
+        autoClose: 5000,
+        closeOnClick: true,
+      });
+    })
+    .catch((err) => {
+      console.log(err, "kick")
+      setCloseContestLoading(false)
+      toast(`${err.data.message}`, {
+        position: "top-right",
+        autoClose: 5000,
+        closeOnClick: true,
+      })
+    })
+  }
+
+
+  const handleOpenContest = async (id) => {
+    setOpenContestLoading(true)
+    await api.post(`https://api.hackathon.noa.gov.ng/api/contest/reopen/${id}`)
+    .then((res) => {
+      console.log(res, "pass")
+      setOpenContestLoading(false)
+      toast(`${res?.data?.message}`, {
+        position: "top-right",
+        autoClose: 5000,
+        closeOnClick: true,
+      });
+    })
+    .catch((err) => {
+      console.log(err, "kick")
+      setOpenContestLoading(false)
+      toast(`${err.data.message}`, {
+        position: "top-right",
+        autoClose: 5000,
+        closeOnClick: true,
+      })
+    })
+  }
+
+
 
   console.log(liveContestData, "liveContestData");
 
-  const data = liveContestData?.map((contest) => ({
+  const data = contest?.map((contest) => ({
     title:  
         <div className='flex items-center' >
             <p className='text-sm font-medium text-[#1D2939]'>{contest.title}</p>
@@ -67,7 +162,14 @@ const ManageContest = () => {
     type: <div className='text-base font-semibold text-[#333333]'>{contest.type}</div>,
     entries: <div className='text-base font-semibold text-[#333333]'>{contest.max_entries || 0}</div>,
     dateCreated: <div className='text-base font-semibold text-[#333333]'>{new Date(contest.created_at).toDateString()}</div>,
-    status: <div className='text-base font-semibold text-[#333333]'>{contest.open === 1 ? "Active" : "Inactive" }</div>,
+    status: <div className='text-base font-semibold text-[#333333]'>{contest.open === "1" ? "Open" : "Closed" }</div>,
+    action: 
+      <TableMenu
+          options={[
+              <p className="text-[#f00]" onClick={() => handleDeleteContest(contest.id)}>Delete</p>,
+              <p onClick={() => {contest.open === "1"  ? handleCloseContest(contest.id) : handleOpenContest(contest.id)}} className={`${contest?.open === "1" ? "text-[#f00]" : "text-[#027315]"}`}>{contest?.open === "1" ? "Close" : "Open"}</p>
+          ]} 
+      />
 }
 
 ))
@@ -80,14 +182,7 @@ const ManageContest = () => {
         <div className='flex justify-between items-center'>
           <h1 className='font-semibold xs:text-lg lg:text-3xl text-[#000]'>Manage Contests</h1>
           <div className='flex gap-3'>
-            {/* <button type='button' className='bg-primary flex justify-center gap-3 items-center rounded-md xs:w-[180px] lg:w-[257px] h-[56px]'>
-              <img src={addIcon} alt="add-icon" />
-              <p className='font-semibold xs:text-sm lg:text-lg text-[#fff]'>Create Campaign</p>
-            </button> */}
-            {/* <button type='button' className='bg-YELLOW-_100 flex justify-center gap-3 items-center rounded-md xs:w-[150px] xs:p-2 md:p-0 md:w-[257px] h-[56px]'>
-              <img src={addIcon} alt="add-icon" />
-              <p className='font-semibold xs:text-sm lg:text-lg text-[#fff]'>Upgrade Now</p>
-            </button> */}
+        
           </div>
         </div>
         <p className='xs:mt-5 lg:mt-2.5 text-base font-normal'>Explore our campaign categories and find the perfect way to engage with your audience.</p>

@@ -188,7 +188,7 @@ const BasicInfo = ({ setActiveTab }) => {
                               <input
                                 name='sponsorName' 
                                 type='text'
-                                placeholder='Karim Benzema'
+                                placeholder='John Doe'
                                 className='xs:w-full lg:w-[649px] lg:h-[44px] mt-1.5 py-2.5 px-3.5 outline-none'
                                 value={values?.sponsorName}
                                 onChange={handleChange}

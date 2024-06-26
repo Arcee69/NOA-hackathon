@@ -19,7 +19,7 @@ const Prizes = ({ setActiveTab }) => {
   console.log(info, "info")
   const { id } = info?.data?.data?.data;
 
-  const token = TokenService.getToken() || undefined; 
+  const token = localStorage.getItem("token")
 
   const navigate = useNavigate()
 
@@ -67,10 +67,10 @@ const Prizes = ({ setActiveTab }) => {
         console.log(pair[0], pair[1]);
       }
 
-      await axios.post(`https://hackathon.smhptech.com/api/prizes/create/${id}`, formData, {
+      await axios.post(`https://api.hackathon.noa.gov.ng/api/prizes/create/${id}`, formData, {
         headers: {
+          "Authorization": `Bearer ${token}`,
           "Content-Type": "multipart/form-data",
-          "Authorization": `Bearer ${token}`
         }
       })
       .then((res) => {

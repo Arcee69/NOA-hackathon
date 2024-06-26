@@ -56,7 +56,7 @@ const Admins = () => {
         })
         .catch((err) => {
             console.log(err, "err")
-            toast("Updated Successfully", {
+            toast("Error", {
                 position: "top-right",
                 autoClose: 5000,
                 closeOnClick: true,
@@ -76,12 +76,12 @@ const Admins = () => {
             </div>,
             date: <div className='text-base font-semibold text-[#333333]'>{new Date(admins?.created_at)?.toDateString() }</div>,
             role: <div className='text-base font-semibold text-[#333333]'>{admins.role}</div>,
-            status: <div className={`${admins.status === 1 ? "text-[#027315]" : "text-[#f00]"} text-base font-semibold`}>{admins?.status === 1 ? "Active" : "Inactive"}</div>,
+            status: <div className={`${admins.status === "1" ? "text-[#027315]" : "text-[#f00]"} text-base font-semibold`}>{admins?.status === "1" ? "Active" : "Inactive"}</div>,
             action: 
                 <TableMenu
                     options={[
                         // <Link to="/manage-admins/admins-info" state={admins}>View</Link>,
-                        <p onClick={() => handleEnableDisable(admins.id, admins.status)} className={`${admins?.status === 1 ? "text-[#f00]" : "text-[#027315]"}`}>{admins?.status === 1 ? "Deactivate" : "Activate"}</p>
+                        <p onClick={() => handleEnableDisable(admins.id, admins.status)} className={`${admins?.status === "1" ? "text-[#f00]" : "text-[#027315]"}`}>{admins?.status === "1" ? "Deactivate" : "Activate"}</p>
                     ]} 
                 />
         }

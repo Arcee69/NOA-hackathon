@@ -5,12 +5,9 @@ import { Form, Formik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 
 import Game from "../../../assets/images/project-b.png";
+import NigeriaFlag from "../../../assets/images/nigeria_flag.png";
 import Google from "../../../assets/icons/google-icon.svg";
 import Facebook from "../../../assets/icons/facebook-icon.svg";
-// import GamePad from "../../../assets/images/game-pic-removeba.png";
-// import { useUser } from "../../../providers/userDetailsProvider";
-// import { api } from "../../../services/api";
-// import { appUrls } from "../../../services/urls";
 import PasswordField from "../../../components/InputFields/PasswordField";
 import { loginUser } from "../../../features/auth/loginSlice";
 
@@ -55,27 +52,11 @@ const LoginPage = () => {
   };
 
 
-  // const serviceData = []
-
-  // const service = async () => {
-  //     console.log(serviceData, "dodo")
-  // await api.post(`${appUrls.SOCIAL_AUTH_URL}?service=google`, )
-  //   .then((res) => {
-  //     console.log(res, "scope")
-  //   })
-  // }
-
-  // if (serviceData !== null) {
-  //     service()
-  // } 
-
-  //serviceData[0]
-
   return (
     <div className="w-full h-full">
       <div className="flex lg:justify-between">
         <div className="xs:hidden lg:flex" >
-          <img src={Game} alt="Contest" className="h-screen"/>
+          <img src={NigeriaFlag} alt="Contest" className="h-[450px]"/>
         </div>
         <div className='xs:w-full flex flex-col gap-6 lg:w-[507px] lg:h-[670px]'> {/* h-[670px] */}
           <p className="text-[#6F8EB3] font-normal text-base xs:mx-auto lg:mx-0 leading-6">Welcome, Please enter your details</p>
@@ -152,27 +133,8 @@ const LoginPage = () => {
             </Formik>
           </div>
          
-          {/* <div className="flex  h-[178px] flex-col gap-6">
-            <p className="text-center text-base text-[#000] w-full">Or Login With</p>
-            <button
-              // onClick={() => serviceData.push("google") }
-              type="submit"
-              className='xs:w-full lg:w-[507px] flex items-center justify-center gap-2 border bg-[#fff] rounded-lg p-3 text-[#000] cursor-pointer w-full h-[54px] text-lg font-medium'
-            >
-              <img src={Google} alt="google-icon"/>
-              <span className="">Log in With Google</span>
-            </button>
-            <button
-              className='xs:w-full lg:w-[507px] flex items-center justify-center gap-2 border bg-[#fff] rounded-lg p-3 text-[#000] cursor-pointer w-full h-[54px] text-lg font-medium'
-            >
-              <img src={Facebook} alt="facebook-icon"/>
-              <span className="">Log in With Facebook</span>
-            </button>
-          </div> */}
-          <p className="text-center w-full text-base font-semibold">
-            Don't have an account? 
-            <span className="text-[#027315]  cursor-pointer ml-1"  onClick={() => {navigate("/register"), window.scrollTo(0, 0)}}>Create account</span>
-          </p>
+          
+         
         </div>
       </div>
     </div>
