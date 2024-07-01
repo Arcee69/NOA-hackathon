@@ -138,7 +138,7 @@ const BasicInfo = ({ setActiveTab }) => {
                               <input
                                 name='contestName' 
                                 type='text'
-                                placeholder='Essay Contest'
+                                placeholder='Photo Contest'
                                 className='lg:w-[649px] h-[44px] mt-1.5 py-2.5 px-3.5 outline-none'
                                 value={values?.contestName}
                                 onChange={handleChange}

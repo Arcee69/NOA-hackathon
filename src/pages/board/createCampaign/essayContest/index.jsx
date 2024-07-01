@@ -5,7 +5,7 @@ import WinnerSelection from './components/WinnerSelection';
 import Prizes from './components/Prizes';
 import Entry from './components/Entry';
 
-const EssayContest = () => {
+const PhotoContest = () => {
   const [activeTab, setActiveTab] = useState("Basic Info");
 
 
@@ -88,4 +88,4 @@ const EssayContest = () => {
   )
 }
 
-export default EssayContest
+export default PhotoContest

@@ -28,6 +28,7 @@ import ManageAdmins from '../pages/board/manageAdmins';
 import AdminInfo from '../pages/board/manageAdmins/components/AdminInfo';
 import CreateAdmin from '../pages/board/manageAdmins/components/CreateAdmin';
 import VideoContest from '../pages/board/createCampaign/videoContest';
+import EssayContest from '../pages/board/createCampaign/photoContest';
 
 
 export default function Routers () {
@@ -46,6 +47,7 @@ export default function Routers () {
               <Route path="/create-campaign" element={<CreateCampaign />} />
               <Route path="/create-campaign/photo-contest" element={<PhotoContest />} />
               <Route path="/create-campaign/video-contest" element={<VideoContest />} />
+              <Route path="/create-campaign/essay-contest" element={<EssayContest />} />
               <Route path='/create-campaign/contest-view' element={<ContestView />} />
               <Route path="/analytics" element={<Analytics />} />
               <Route path='/settings' element={<Settings />} />
