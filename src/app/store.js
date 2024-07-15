@@ -18,6 +18,7 @@ import getEntriesByIdReducer from "../features/board/entries/getEntriesByIdSlice
 import updatePasswordReducer from "../features/board/settings/updatePasswordSlice";
 import updateProfileReducer from "../features/board/settings/updateProfileSlice";
 import getProfileReducer from "../features/board/settings/getProfileSlice";
+import createQuizReducer from "../features/board/quiz/createQuizSlice";
 
 
     const persistConfig = {
@@ -39,7 +40,8 @@ import getProfileReducer from "../features/board/settings/getProfileSlice";
         entriesById: getEntriesByIdReducer,
         updatePassword: updatePasswordReducer,
         updateProfile: updateProfileReducer,
-        getProfile: getProfileReducer
+        getProfile: getProfileReducer,
+        createQuiz:createQuizReducer
     });
   
     const persistedReducer = persistReducer(persistConfig, rootReducer)

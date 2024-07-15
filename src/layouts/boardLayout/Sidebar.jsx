@@ -93,14 +93,14 @@ export default function Sidebar() {
             <img src={campaignIcon} alt="icon" />
           ),
       },
-      // {
-      //     title: "Manage Submissions",
-      //     children: false,
-      //     itemId: '#', ///judges-contests
-      //     icon: () => (
-      //       <img src={judgeIcon} alt="icon" />
-      //     ),
-      // },
+      {
+          title: "Manage Quiz",
+          children: false,
+          itemId: '/quiz', 
+          icon: () => (
+            <img src={judgeIcon} alt="icon" />
+          ),
+      },
       {
           title: "Manage Admin",
           children: false,
