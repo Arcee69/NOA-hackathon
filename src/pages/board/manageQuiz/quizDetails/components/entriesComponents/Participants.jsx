@@ -30,6 +30,7 @@ const Participants = ({ quizDetails }) => {
   ];
 
   const participants = quizDetails?.participants
+  console.log(participants, "participants")
 
   const columns = [
     { 
@@ -67,12 +68,12 @@ const Participants = ({ quizDetails }) => {
         <div className='flex flex-row gap-2 items-center' >
             <p className='text-sm font-medium font-mont_alt text-[#1D2939]'>{data?.name}</p>
         </div>,
-    phone: <div className='text-base font-medium font-mont_alt text-[#1D2939]'>{data?.number}</div>,
-    resident: <div className='text-base font-medium font-mont_alt text-[#1D2939]'>{data?.residence}</div>,
+    phone: <div className='text-base font-medium font-mont_alt text-[#1D2939]'>{data?.phone}</div>,
+    resident: <div className='text-base font-medium font-mont_alt text-[#1D2939]'>{data?.state_id}</div>,
     score: <div className='text-base font-medium font-mont_alt text-[#1D2939]'>{data?.score}</div>,
-    amount: <div className='text-base font-medium font-mont_alt text-[#1D2939]'>{data?.amount}</div>,
-    date: <div className='text-base font-medium font-mont_alt text-[#1D2939]'>{data?.date}</div>,
-    time: <div className='text-base font-medium font-mont_alt text-[#1D2939]'>{data?.time}</div>,
+    amount: <div className='text-base font-medium font-mont_alt text-[#1D2939]'>{data?.amount_won}</div>,
+    date: <div className='text-base font-medium font-mont_alt text-[#1D2939]'>{new Date(data?.created_at).toDateString()}</div>,
+    time: <div className='text-base font-medium font-mont_alt text-[#1D2939]'>{Math.round(parseInt(data?.time_spent) / 60)} mins</div>,
   }
 
 ))  

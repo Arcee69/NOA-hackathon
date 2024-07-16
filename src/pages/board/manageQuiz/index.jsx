@@ -9,10 +9,13 @@ import Zones from "../../../assets/images/zones.png"
 import Table2 from '../../../components/TableTwo'
 import { api } from '../../../services/api'
 import { appUrls } from '../../../services/urls'
+import { toast } from 'react-toastify'
+import { CgSpinner } from 'react-icons/cg'
 
 const ManageQuiz = () => {
     const [allQuizzes, setAllQuizzes] = useState([])
     const [loading, setLoading] = useState(false)
+    const [deleteLoading, setDeleteLoading] = useState(false)
 
     const navigate = useNavigate()
 
@@ -34,7 +37,31 @@ const ManageQuiz = () => {
 
     useEffect(() => {
         getAllQuiz()
-    },[])
+    },[deleteLoading])
+
+    const deleteSingleQuiz = async (item) => {
+        setDeleteLoading(true)
+        await api.delete(appUrls?.GET_ALL_QUIZ_URL + `/${item?.id}`)
+        .then((res) => {
+            setDeleteLoading(false)
+            console.log(res, "azaman")
+            toast(`Quiz Deleted Successfully`, {
+                position: "top-right",
+                autoClose: 5000,
+                closeOnClick: true,
+            })
+        })
+        .catch((err) => {
+            setDeleteLoading(false)
+            console.log(err, "sample")
+            toast(`Error`, {
+                position: "top-right",
+                autoClose: 5000,
+                closeOnClick: true,
+            })
+        })
+    }
+
  
     const scorersData = [
         // {
@@ -141,7 +168,7 @@ const ManageQuiz = () => {
         <div className='mt-[48px] flex flex-col gap-4'>
             <div className='flex justify-between items-center'>
                 <p className='font-mont_alt font-bold text-[24px] text-[#070807]'>Active Quizzes</p>
-                <p className='font-mont_alt font-bold text-[14px] text-[#00AA55]'>View all</p>
+                <p className='font-mont_alt font-bold text-[14px] text-[#00AA55]' onClick={() => {navigate("/quiz/view-all")}}>View all</p>
             </div>
             <div className='flex flex-col lg:flex-row items-center gap-5 '>
                 {
@@ -179,9 +206,16 @@ const ManageQuiz = () => {
                                 <div className='bg-[#f8a4012e] w-[128px] p-2.5 flex items-center justify-center rounded-xl'>
                                     <p className='text-[#DC6803] text-xs font-mont'>Personality</p>
                                 </div>
-                                <button type='button' onClick={() => {navigate("/quiz/view-details", {state: item}); window.scrollTo(0, 0)}} className='bg-[#027315] rounded-[8px] border w-[124px] py-2 px-[15px] border-[#00AA55]'>
-                                    <p className='font-mont_alt font-semibold text-[#fff] text-sm '>View Details</p>
-                                </button>
+                                <div className='flex justify-between items-center'>
+                                    <button type='button' onClick={() => {navigate("/quiz/view-details", {state: item}); window.scrollTo(0, 0)}} className='bg-[#027315] rounded-[8px] border w-[124px] py-2 px-[15px] border-[#00AA55]'>
+                                        <p className='font-mont_alt font-semibold text-[#fff] text-sm '>View Details</p>
+                                    </button>
+                                    <button type='button' onClick={() => deleteSingleQuiz(item)} className='bg-[#f00] rounded-[8px] w-[124px] py-2 px-[15px]'>
+                                        <p className='font-mont_alt font-semibold text-[#fff] text-sm flex items-center justify-center'>
+                                            {deleteLoading ? <CgSpinner className='animate-spin text-lg'/> : "Delete"} 
+                                        </p>
+                                    </button>
+                                </div>
 
                             </div>
 

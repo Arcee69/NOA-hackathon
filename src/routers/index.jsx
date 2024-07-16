@@ -33,6 +33,7 @@ import ManageQuiz from '../pages/board/manageQuiz';
 import CreateQuiz from '../pages/board/manageQuiz/createQuiz';
 import QuizView from '../pages/board/manageQuiz/createQuiz/components/contest/ContestView';
 import QuizViewDetails from '../pages/board/manageQuiz/quizDetails';
+import QuizViewAll from '../pages/board/manageQuiz/QuizViewAll';
 
 
 export default function Routers () {
@@ -61,6 +62,7 @@ export default function Routers () {
               <Route path="/quiz/create-quiz" element={<CreateQuiz />} />
               <Route path="/quiz/view-quiz" element={<QuizView />} />
               <Route path="/quiz/view-details" element={<QuizViewDetails />} />
+              <Route path="/quiz/view-all" element={<QuizViewAll />} />
               {/* <Route path='/judges-contests/:id' element={<ViewContest />} /> */}
               {/* <Route path='/manage-judges/judges-info' element={<JudgesInfo />} /> */}
               <Route path='/manage-admins/admins-info' element={<AdminInfo />} />

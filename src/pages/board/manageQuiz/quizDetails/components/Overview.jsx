@@ -63,11 +63,11 @@ const Overview = ({ quizDetails }) => {
             <p className='font-medium text-lg text-[#000] font-mont_alt'>Takers</p>
             <div className='mt-5 gap-2 flex flex-col'>
               <p className='font-normal font-mont_alt text-sm'>Total Takers: </p>
-              <p className='text-[#027315] font-mont_alt font-semibold text-base'>{quizDetails?.partiparticipants?.length || 0} Entries</p>
+              <p className='text-[#027315] font-mont_alt font-semibold text-base'>{quizDetails?.participants?.length || 0} Entries</p>
             </div>
             <div className='mt-5'>
               <p className='font-normal text-sm'>Valid Takers</p>
-              <p className='text-[#027315] font-mont_alt font-semibold text-base'>0 Entries</p>
+              <p className='text-[#027315] font-mont_alt font-semibold text-base'>{quizDetails?.participants?.length || 0} Entries</p>
             </div>
           </div>
           <div className='flex flex-col bg-[#fff] border p-3 border-[#F8F8F8] border-8 rounded-md lg:w-[336px] h-[90px]'>
