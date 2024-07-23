@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Formik, Field, FieldArray, Form } from 'formik';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
@@ -7,10 +7,12 @@ import { useSelector } from 'react-redux';
 import { api } from '../../../../../services/api';
 import { appUrls } from '../../../../../services/urls';
 import { useNavigate } from 'react-router-dom';
+import { CgSpinner } from 'react-icons/cg';
 
 
 
 const SetQuestions = () => {
+  const [loading, setLoading] = useState(false)
 
   const quiz = useSelector(state => state.createQuiz)
   console.log(quiz, "pastor")
@@ -35,6 +37,7 @@ const SetQuestions = () => {
   });
 
   const submitForm = async (values) => {
+    setLoading(true)
     const transformedData = {
       quiz_id: quizId, // Replace with your actual quiz ID
       questions: values.questions.map((q) => ({
@@ -51,6 +54,7 @@ const SetQuestions = () => {
     try {
       const response = await api.post(appUrls?.CREATE_QUESTIONS_URL, transformedData);
       console.log('Response:', response);
+      setLoading(false)
       toast(`${response?.data?.message}`, {
         position: "top-right",
         autoClose: 5000,
@@ -58,6 +62,7 @@ const SetQuestions = () => {
       })
       navigate("/quiz/view-quiz")
     } catch (error) {
+      setLoading(false)
       console.error('Error submitting data:', error);
       toast("Error", {
         position: "top-right",
@@ -164,8 +169,11 @@ const SetQuestions = () => {
               )}
             </FieldArray>
             <div className='flex gap-4 justify-end'>
-              <button type="submit" className="mt-4 bg-[#027315] w-[181px] h-[52px] font-mont_alt flex items-center justify-center text-[#fff] py-2 px-4 rounded-lg">
-                Submit
+              <button 
+                type="submit" 
+                className="mt-4 bg-[#027315] w-[181px] h-[52px] font-mont_alt flex items-center justify-center text-[#fff] py-2 px-4 rounded-lg"
+              >
+                <p className='text-[#fff] text-base font-inter text-[18px] text-center font-medium'>{loading ? <CgSpinner className=" animate-spin text-2xl " /> : "Submit"}</p>
               </button>
               <button type="button" className="mt-4 border border-[#027315] font-mont_alt w-[181px] h-[52px] flex items-center justify-center text-[#027315] py-2 px-4 rounded-lg">
                 Cancel

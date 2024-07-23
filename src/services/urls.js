@@ -13,6 +13,7 @@ export const appUrls = {
     GET_LIVE_CONTEST_BY_A_PARTICULAR_CREATOR_URL: "/api/fetch_all_my_live_contest",
     GET_NUMBER_OF_ALL_LIVE_CONTEST_BY_A_PARTICULAR_CREATOR_URL: "/api/number_of_my_live_contest",
     GET_ALL_PARTICIPANT_URL: "/api/fetch_participants",
+    GET_ALL_TRANSACTIONS_URL: "/api/transactions",
 
     //QUIZ ENDPOINT
     CREATE_QUIZ_URL: "/api/quizzes/create",

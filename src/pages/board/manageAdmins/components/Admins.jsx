@@ -76,7 +76,7 @@ const Admins = () => {
             </div>,
             date: <div className='text-base font-semibold text-[#333333]'>{new Date(admins?.created_at)?.toDateString() }</div>,
             role: <div className='text-base font-semibold text-[#333333]'>{admins.role}</div>,
-            status: <div className={`${admins.status === "1" ? "text-[#027315]" : "text-[#f00]"} text-base font-semibold`}>{admins?.status === "1" ? "Active" : "Inactive"}</div>,
+            status: <div className={`${admins.status === 1 ? "text-[#027315]" : "text-[#f00]"} text-base font-semibold`}>{admins?.status === 1 ? "Active" : "Inactive"}</div>,
             action: 
                 <TableMenu
                     options={[

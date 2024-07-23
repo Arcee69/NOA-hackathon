@@ -9,11 +9,12 @@ import SearchableSelect from '../../../../../components/CustomSelect'
 import { uploadFile } from '@uploadcare/upload-client'
 import { uploadPhoto } from '../../../../../features/board/createCampain/photoContest/uploadPhotoSlice'
 import { createNewQuiz } from '../../../../../features/board/quiz/createQuizSlice'
+import { CgSpinner } from 'react-icons/cg'
 
 
 
 const BasicInfo = ({ setActiveTab }) => {
-
+  const [loading, setLoading] = useState(false)
 
   const userData  = useSelector(state => state.userLogin)
   const dispatch = useDispatch()
@@ -57,6 +58,7 @@ const BasicInfo = ({ setActiveTab }) => {
   const submitForm =  async (values) => {
       // max_number_of_winners
       // 10
+      setLoading(true)
 
       let formData = new FormData()
       formData.append("title", values?.quizName)
@@ -69,6 +71,7 @@ const BasicInfo = ({ setActiveTab }) => {
 
       await dispatch(createNewQuiz(formData))
       .then((res) => {
+        setLoading(false)
         setActiveTab("Set Questions")
       })
 
@@ -262,10 +265,10 @@ const BasicInfo = ({ setActiveTab }) => {
                           </div>
 
                           <div className='flex flex-col xs:w-full lg:w-[300px]'>
-                              <label htmlFor='Contest Name' className='text-sm font-medium text-NEUTRAL-_200'>Time Duration</label>
+                              <label htmlFor='Contest Name' className='text-sm font-medium text-NEUTRAL-_200'>Time Duration (mins)</label>
                               <input
                                 name='duration' 
-                                type='text'
+                                type='number'
                                 placeholder='5'
                                 className='w-full h-[44px] mt-1.5 py-2.5 px-3.5 outline-none'
                                 value={values?.duration}
@@ -304,10 +307,10 @@ const BasicInfo = ({ setActiveTab }) => {
                       <div className='flex xs:mt-4 md:mt-5 lg:mt-5 gap-4 justify-end'>
                         <button 
                           type="submit" 
-                          className="font-normal bg-[#027315] text-base p-2 rounded-md text-[#fff] border border-solid"
+                          className="font-normal bg-[#027315] text-base p-2 flex items-center justify-center rounded-md text-[#fff] border border-solid"
                           style={{ width: "130px" }}
                         >
-                          Continue
+                          <p className='text-[#fff] text-base font-inter text-[18px] text-center font-medium'>{loading ? <CgSpinner className=" animate-spin text-2xl " /> : "Continue"}</p>
                         </button>
 
                         <button 

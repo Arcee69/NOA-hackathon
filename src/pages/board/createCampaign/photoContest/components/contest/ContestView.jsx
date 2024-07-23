@@ -29,9 +29,9 @@ const ContestView = () => {
         <div className='bg-[#fff] flex justify-center p-10 border border-[#D0D5DD] rounded-lg'>
           <p 
             className='cursor-pointer text-[#A5A5A5]' 
-            onClick={() => copyTextToClipboard("https://noawebsite.netlify.app/hackathon")}
+            onClick={() => copyTextToClipboard("https://noa.gov.ng/hackathon")}
           >
-            https://noawebsite.netlify.app/hackathon
+            https://noa.gov.ng/hackathon
             {/* http://localhost:5173/contest-page */}
           </p>
         </div>

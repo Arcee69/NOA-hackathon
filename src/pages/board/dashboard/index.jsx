@@ -34,33 +34,6 @@ const Dashboard = () => {
     dispatch(fetchAllAdmins())
   }, [])
 
-//   const findTotal = (my_list) => {
-//     const even = [];
-//     const odd = [];
-//     for(let i = 0; i < my_list.length; i++){
-//       if(i % 2 === 0) {
-//         console.log(my_list[i], 'dodge')
-//         even.push(my_list[i])
-//       }
-//       else if(i % 2 !== 0) {
-//         console.log(my_list[i], "bnxn")
-//         odd.push(my_list[i])
-//       }
-//     }
-//     console.log(even, "vovo");
-//     console.log(odd, "gogo");
-//     const oddTotal = even.reduce((acc, cur) => acc + cur)
-//     const evenTotal = even.reduce((total, num) => num)
-//     console.log(oddTotal, "time")
-//     console.log(evenTotal, "t")
-//     const total = Number(oddTotal) - Number(evenTotal)
-//     console.log(total, "story")
-//     return total
-// } 
-
-// const list = [1, 2, 3]
-// console.log(findTotal(list), "popo")
-
 
 
 

@@ -54,7 +54,7 @@ const ManageQuiz = () => {
         .catch((err) => {
             setDeleteLoading(false)
             console.log(err, "sample")
-            toast(`Error`, {
+            toast(`${err?.data?.message}`, {
                 position: "top-right",
                 autoClose: 5000,
                 closeOnClick: true,

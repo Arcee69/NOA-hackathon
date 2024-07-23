@@ -47,8 +47,8 @@ const Overview = () => {
           </div>
           <div className='flex flex-col bg-[#fff] border p-3 border-[#F8F8F8] border-8 rounded-md lg:w-[336px] h-[90px]'>
             <p className='font-medium text-base text-[#000] '>Live Link</p>
-            <div className='mt-2 gap-2 flex flex-col cursor-pointer' onClick={() => copyTextToClipboard(" https://noawebsite.netlify.app/hackathon")}>
-              <p className='font-normal text-xs text-NEUTRAL-_700'> https://noawebsite.netlify.app/hackathon</p> {/* http://localhost:5173/contest-page  */}
+            <div className='mt-2 gap-2 flex flex-col cursor-pointer' onClick={() => copyTextToClipboard(" https://noa.gov.ng/hackathon")}>
+              <p className='font-normal text-xs text-NEUTRAL-_700'> https://noa.gov.ng/hackathon</p> {/* http://localhost:5173/contest-page  */}
             </div>
           </div>
         </div>

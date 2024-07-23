@@ -26,7 +26,9 @@ export default function PaginationControlled({
         classes={{ ul: classes.ul }}
         page={page}
         shape="rounded"
-        onChange={handlePaginationChange}
+        onChange={(event, value) => {
+          handlePaginationChange(event, value);
+        }}
       />
     </Stack>
   );

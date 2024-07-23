@@ -110,6 +110,14 @@ export default function Sidebar() {
           ),
       },
       {
+          title: "Transaction",
+          children: false,
+          itemId: '/transactions',
+          icon: () => (
+            <img src={analytics} alt="icon" />
+          ),
+      },
+      {
           title: "Analytics",
           children: false,
           itemId: '/analytics',
@@ -139,7 +147,6 @@ export default function Sidebar() {
           className=" z-30 cursor-pointer w-[218px] h-[55px]" //h-[41px] w-[45px]
           onClick={() => navigate("/")}
         />
-        {/* <div className="text-primary text-2xl font-semibold">Edu<span className="text-YELLOW-_100">Contest</span></div> */}
       </div>
       <div className="w-full">
         <div className="px-[10%] py-[8%] flex flex-col gap-8 "> {/* px-[20%] */}

@@ -19,6 +19,7 @@ import updatePasswordReducer from "../features/board/settings/updatePasswordSlic
 import updateProfileReducer from "../features/board/settings/updateProfileSlice";
 import getProfileReducer from "../features/board/settings/getProfileSlice";
 import createQuizReducer from "../features/board/quiz/createQuizSlice";
+import getTransactionReducer from "../features/board/transaction/getTransactionSlice";
 
 
     const persistConfig = {
@@ -41,7 +42,8 @@ import createQuizReducer from "../features/board/quiz/createQuizSlice";
         updatePassword: updatePasswordReducer,
         updateProfile: updateProfileReducer,
         getProfile: getProfileReducer,
-        createQuiz:createQuizReducer
+        createQuiz:createQuizReducer,
+        allTransactions: getTransactionReducer
     });
   
     const persistedReducer = persistReducer(persistConfig, rootReducer)

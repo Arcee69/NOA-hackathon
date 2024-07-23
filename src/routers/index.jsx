@@ -34,6 +34,7 @@ import CreateQuiz from '../pages/board/manageQuiz/createQuiz';
 import QuizView from '../pages/board/manageQuiz/createQuiz/components/contest/ContestView';
 import QuizViewDetails from '../pages/board/manageQuiz/quizDetails';
 import QuizViewAll from '../pages/board/manageQuiz/QuizViewAll';
+import Transactions from '../pages/board/transaction';
 
 
 export default function Routers () {
@@ -45,7 +46,7 @@ export default function Routers () {
             <Route path='/contest-page' element={<ContestPage />} />
             <Route path='/vote' element={<Vote />} />
 
-            <Route element={<ProtectRoutes /> }> {/*  */}
+            <Route element={<ProtectRoutes /> }> 
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/manage-contests" element={<ManageContest />} />
               <Route path="/manage-contests/manage-entries" element={<ManageEntries />} />
@@ -63,6 +64,7 @@ export default function Routers () {
               <Route path="/quiz/view-quiz" element={<QuizView />} />
               <Route path="/quiz/view-details" element={<QuizViewDetails />} />
               <Route path="/quiz/view-all" element={<QuizViewAll />} />
+              <Route path="/transactions" element={<Transactions />} />
               {/* <Route path='/judges-contests/:id' element={<ViewContest />} /> */}
               {/* <Route path='/manage-judges/judges-info' element={<JudgesInfo />} /> */}
               <Route path='/manage-admins/admins-info' element={<AdminInfo />} />
