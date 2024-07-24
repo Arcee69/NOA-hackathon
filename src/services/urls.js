@@ -20,6 +20,7 @@ export const appUrls = {
     GET_ALL_QUIZ_URL: "/api/quizzes",
     GET_QUIZ_OVERVIEW_BY_ID_URL: "/api/quizzes/overview",
     GET_PARTICIPANT_URL: "/api/questions/participants",
+    CLOSE_QUIZ_URL: "/api/quizzes/close",
 
     //QUESTIONS ENDPOINT
     CREATE_QUESTIONS_URL: "/api/questions/create",

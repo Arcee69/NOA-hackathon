@@ -6,6 +6,8 @@ import User from "../../../assets/icons/user_fill.svg"
 import { api } from '../../../services/api'
 import { appUrls } from '../../../services/urls'
 import { Skeleton } from '@mui/material'
+import LongMenu from '../../../components/actionMenuIcon'
+import { toast } from 'react-toastify'
 
 const QuizViewAll = () => {
     const [allQuizzes, setAllQuizzes] = useState([])
@@ -27,11 +29,33 @@ const QuizViewAll = () => {
         })
     }
 
+    const activeQuizzes = allQuizzes.filter(quiz => quiz.status === 'active');
+
     console.log(allQuizzes, "allQuizzes")
 
     useEffect(() => {
         getAllQuiz()
     },[])
+
+    const closeQuiz = async (id) => {
+        await api.put(appUrls?.CLOSE_QUIZ_URL + `/${id}`)
+        .then((res) => {
+            console.log(res, "close")
+            toast(`${res?.data?.message}`, {
+                position: "top-right",
+                autoClose: 5000,
+                closeOnClick: true,
+            })
+        })
+        .catch((err) => {
+            console.log(err, "close")
+            toast(`${err?.data?.message}`, {
+                position: "top-right",
+                autoClose: 5000,
+                closeOnClick: true,
+            })
+        })
+    }
 
 
 
@@ -47,8 +71,8 @@ const QuizViewAll = () => {
                     loading ?
                     <Skeleton variant="rectangular" width={window.innerWidth < 786 ? 200 : 286} height={350} style={{ backgroundColor: 'rgba(0,0,0, 0.06)' }} />
                     :
-                    allQuizzes?.length > 0 ?
-                    allQuizzes?.map((item, index) => (
+                    activeQuizzes?.length > 0 ?
+                    activeQuizzes?.map((item, index) => (
                         <div key={item?.id} className='lg:w-[370px] bg-[#fff] h-auto p-2 flex flex-col border border-[#E8F2EA] rounded-tl-xl rounded-tr-xl'>
                             <div className='bg-[#add8e6] p-2 flex items-center justify-center'>
                                 <img src={`${item?.image}`} alt='Zones' className='h-[211px]'/>
@@ -75,13 +99,23 @@ const QuizViewAll = () => {
                                 <p className='opacity-40 text-[#000] font-mont_alt font-medium text-sm'>
                                     {item?.desc?.slice(0, 20)}
                                 </p>
-                                <div className='bg-[#f8a4012e] w-[128px] p-2.5 flex items-center justify-center rounded-xl'>
-                                    <p className='text-[#DC6803] text-xs font-mont'>Personality</p>
+
+                                <div className="flex items-center justify-between">
+                                    <button type='button' onClick={() => {navigate("/quiz/view-details", {state: item}); window.scrollTo(0, 0)}} className='bg-[#027315] rounded-[8px] border w-[124px] py-2 px-[15px] border-[#00AA55]'>
+                                        <p className='font-mont_alt font-semibold text-[#fff] text-sm '>View Details</p>
+                                    </button>
+                                    <LongMenu>
+                                        <div className='flex flex-col gap-3 p-3'>
+                                            <p 
+                                                className='cursor-pointer hover:bg-[#F8F8F8] p-1' 
+                                                onClick={() => closeQuiz(item?.id)}
+                                            >
+                                                Close
+                                            </p>
+                                        </div>
+                                    </LongMenu>
                                 </div>
                           
-                                <button type='button' onClick={() => {navigate("/quiz/view-details", {state: item}); window.scrollTo(0, 0)}} className='bg-[#027315] rounded-[8px] border w-[124px] py-2 px-[15px] border-[#00AA55]'>
-                                    <p className='font-mont_alt font-semibold text-[#fff] text-sm '>View Details</p>
-                                </button>
                                
 
                             </div>

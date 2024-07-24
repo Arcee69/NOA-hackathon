@@ -16,6 +16,7 @@ const ManageQuiz = () => {
     const [allQuizzes, setAllQuizzes] = useState([])
     const [loading, setLoading] = useState(false)
     const [deleteLoading, setDeleteLoading] = useState(false)
+    const [closeQuizLoading, setCloseQuizLoading] = useState(false)
 
     const navigate = useNavigate()
 
@@ -33,11 +34,36 @@ const ManageQuiz = () => {
         })
     }
 
+    const activeQuizzes = allQuizzes.filter(quiz => quiz.status === 'active');
+
     console.log(allQuizzes, "allQuizzes")
 
     useEffect(() => {
         getAllQuiz()
-    },[deleteLoading])
+    }, [deleteLoading, closeQuizLoading])
+
+    const closeQuiz = async (id) => {
+        setCloseQuizLoading(true)
+        await api.put(appUrls?.CLOSE_QUIZ_URL + `/${id}`)
+        .then((res) => {
+            setCloseQuizLoading(false)
+            console.log(res, "close")
+            toast(`${res?.data?.message}`, {
+                position: "top-right",
+                autoClose: 5000,
+                closeOnClick: true,
+            })
+        })
+        .catch((err) => {
+            console.log(err, "close")
+            setCloseQuizLoading(false)
+            toast(`${err?.data?.message}`, {
+                position: "top-right",
+                autoClose: 5000,
+                closeOnClick: true,
+            })
+        })
+    }
 
     const deleteSingleQuiz = async (item) => {
         setDeleteLoading(true)
@@ -175,8 +201,8 @@ const ManageQuiz = () => {
                     loading ?
                     <Skeleton variant="rectangular" width={window.innerWidth < 786 ? 200 : 286} height={350} style={{ backgroundColor: 'rgba(0,0,0, 0.06)' }} />
                     :
-                    allQuizzes?.length > 0 ?
-                    allQuizzes?.slice(0, 3).map((item, index) => (
+                    activeQuizzes?.length > 0 ?
+                    activeQuizzes?.slice(0, 3).map((item, index) => (
                         <div key={item?.id} className='lg:w-[370px] bg-[#fff] h-auto p-2 flex flex-col border border-[#E8F2EA] rounded-tl-xl rounded-tr-xl'>
                             <div className='bg-[#add8e6] p-2 flex items-center justify-center'>
                                 <img src={`${item?.image}`} alt='Zones' className='h-[211px]'/>
@@ -210,9 +236,9 @@ const ManageQuiz = () => {
                                     <button type='button' onClick={() => {navigate("/quiz/view-details", {state: item}); window.scrollTo(0, 0)}} className='bg-[#027315] rounded-[8px] border w-[124px] py-2 px-[15px] border-[#00AA55]'>
                                         <p className='font-mont_alt font-semibold text-[#fff] text-sm '>View Details</p>
                                     </button>
-                                    <button type='button' onClick={() => deleteSingleQuiz(item)} className='bg-[#f00] rounded-[8px] w-[124px] py-2 px-[15px]'>
+                                    <button type='button' onClick={() => closeQuiz(item?.id)} className='bg-[#f00] rounded-[8px] w-[124px] py-2 px-[15px]'>
                                         <p className='font-mont_alt font-semibold text-[#fff] text-sm flex items-center justify-center'>
-                                            {deleteLoading ? <CgSpinner className='animate-spin text-lg'/> : "Delete"} 
+                                            {closeQuizLoading ? <CgSpinner className='animate-spin text-lg'/> : "Close"} 
                                         </p>
                                     </button>
                                 </div>
