@@ -60,12 +60,17 @@ const BasicInfo = ({ setActiveTab }) => {
       // 10
       setLoading(true)
 
+      const startDate = values?.startDate.replace('T', ' ');
+      const endDate = values?.endDate.replace('T', ' ');
+
+
       let formData = new FormData()
       formData.append("title", values?.quizName)
+      formData.append("budget", values?.budget)
       formData.append("desc", values?.description)
       formData.append("image", values?.imageDoc)
-      formData.append("start_date", values?.startDate)
-      formData.append("end_date", values?.endDate)
+      formData.append("start_date", startDate);
+      formData.append("end_date", endDate);
       formData.append("duration_of_quiz", values?.duration)
       formData.append("amount_for_winners", values?.prizeValue)
 
@@ -131,6 +136,7 @@ const BasicInfo = ({ setActiveTab }) => {
                 description: "",
                 duration: 0,
                 prizeValue: "",
+                budget: ""
            
               }}
               validationSchema={formValidationSchema}
@@ -174,12 +180,28 @@ const BasicInfo = ({ setActiveTab }) => {
                               }
                             </div>
 
+                            <div className='flex flex-col '>
+                              <label htmlFor='Quiz Budget' className='text-sm font-medium text-NEUTRAL-_200'>Quiz Budget</label>
+                              <input
+                                name='budget' 
+                                type='number'
+                                placeholder='100'
+                                className='lg:w-[649px] h-[44px] mt-1.5 py-2.5 px-3.5 outline-none'
+                                value={values?.budget}
+                                onChange={handleChange}
+                              />
+                              {errors.budget && touched.budget ? 
+                                <div className='text-RED-_100'>{errors.budget}</div> 
+                                : null
+                              }
+                            </div>
+
                             <div className='lg:w-[640px] lg:h-[70px] flex xs:flex-col lg:flex-row justify-between xs:mt-3 lg:mt-6'>
                               <div className='flex flex-col'>
                                 <label htmlFor='Start Date' className='text-sm font-medium text-NEUTRAL-_200'>Start Date</label>
                                 <input 
                                   name='startDate'
-                                  type='date'
+                                  type='datetime-local'
                                   placeholder='DD/MM/YYYY'
                                   className='xs:w-full  lg:w-[300px] h-[44px] mt-1.5 py-2.5 px-3.5 outline-none'
                                   value={values?.startDate}
@@ -195,7 +217,7 @@ const BasicInfo = ({ setActiveTab }) => {
                                 <label htmlFor='End Date' className='text-sm font-medium text-NEUTRAL-_200'>End Date</label>
                                 <input 
                                   name='endDate'
-                                  type='date'
+                                  type='datetime-local'
                                   placeholder='DD/MM/YYYY'
                                   className='xs:w-full lg:w-[300px] h-[44px] mt-1.5 py-2.5 px-3.5 outline-none'
                                   value={values?.endDate}

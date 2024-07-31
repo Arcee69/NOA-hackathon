@@ -34,7 +34,7 @@ const ManageQuiz = () => {
         })
     }
 
-    const activeQuizzes = allQuizzes.filter(quiz => quiz.status === 'active');
+    const activeQuizzes = allQuizzes?.filter(quiz => quiz.status === 'active');
 
     console.log(allQuizzes, "allQuizzes")
 
@@ -194,7 +194,7 @@ const ManageQuiz = () => {
         <div className='mt-[48px] flex flex-col gap-4'>
             <div className='flex justify-between items-center'>
                 <p className='font-mont_alt font-bold text-[24px] text-[#070807]'>Active Quizzes</p>
-                <p className='font-mont_alt font-bold text-[14px] text-[#00AA55]' onClick={() => {navigate("/quiz/view-all")}}>View all</p>
+                <p className='font-mont_alt font-bold text-[14px] text-[#00AA55] cursor-pointer' onClick={() => {navigate("/quiz/view-all")}}>View all</p>
             </div>
             <div className='flex flex-col lg:flex-row items-center gap-5 '>
                 {
@@ -229,9 +229,9 @@ const ManageQuiz = () => {
                                 <p className='opacity-40 text-[#000] font-mont_alt font-medium text-sm'>
                                     {item?.desc?.slice(0, 20)}
                                 </p>
-                                <div className='bg-[#f8a4012e] w-[128px] p-2.5 flex items-center justify-center rounded-xl'>
+                                {/* <div className='bg-[#f8a4012e] w-[128px] p-2.5 flex items-center justify-center rounded-xl'>
                                     <p className='text-[#DC6803] text-xs font-mont'>Personality</p>
-                                </div>
+                                </div> */}
                                 <div className='flex justify-between items-center'>
                                     <button type='button' onClick={() => {navigate("/quiz/view-details", {state: item}); window.scrollTo(0, 0)}} className='bg-[#027315] rounded-[8px] border w-[124px] py-2 px-[15px] border-[#00AA55]'>
                                         <p className='font-mont_alt font-semibold text-[#fff] text-sm '>View Details</p>

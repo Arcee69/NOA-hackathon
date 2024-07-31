@@ -20,7 +20,7 @@ const Dashboard = () => {
 
   console.log(allContest, "allContest")
 
-  // const { user } = userData.data;
+  // const { user } = userData.data; 
   const { data } = allContest
 
   const analyticsData = useSelector(state => state.analytics)
@@ -35,8 +35,6 @@ const Dashboard = () => {
   }, [])
 
 
-
-
   useEffect(() => {
     dispatch(fetchAllContest());
     
@@ -48,10 +46,6 @@ const Dashboard = () => {
       <div className='flex justify-between items-center'>
         <h1 className='font-semibold xs:text-lg lg:text-3xl text-[#000]'>Overview</h1>
         <div className='flex gap-3'>
-          {/* <button type='button' className='bg-primary flex justify-center gap-3 items-center rounded-md xs:w-[180px] lg:w-[257px] h-[56px]'>
-            <img src={addIcon} alt="add-icon" />
-            <p className='font-semibold xs:text-sm lg:text-lg text-[#fff]'>Create Campaign</p>
-          </button>  h-[879px] */}
           <button onClick={() => navigate("/create-campaign")} type='button' className='bg-[#027315] flex justify-center gap-3 items-center rounded-md xs:w-[150px] xs:p-2 md:p-0 md:w-[257px] h-[56px]'>
             <img src={addIcon} alt="add-icon" />
             <p className='font-semibold xs:text-sm lg:text-lg text-[#fff]'>Create Campaign</p>
