@@ -22,14 +22,14 @@ const ManageEntries = () => {
           id: 4,
           tabName: "Share"
         },
-        {
-          id: 5,
-          tabName: "Report"
-        },
-        {
-          id: 6,
-          tabName: "Winning"
-        },
+        // {
+        //   id: 5,
+        //   tabName: "Report"
+        // },
+        // {
+        //   id: 6,
+        //   tabName: "Winning"
+        // },
       ]
     );
 
@@ -45,12 +45,12 @@ const ManageEntries = () => {
           case "Share":
             setActiveTab("Share");
             break;
-          case "Report":
-            setActiveTab("Report");
-            break;
-          case "Winning":
-            setActiveTab("Winning");
-            break;
+          // case "Report":
+          //   setActiveTab("Report");
+          //   break;
+          // case "Winning":
+          //   setActiveTab("Winning");
+          //   break;
           default:
             setActiveTab("Overview");
             break;
@@ -81,8 +81,8 @@ const ManageEntries = () => {
       {activeTab === "Overview" && <Overview />}
       {activeTab === "Entries" && <Entries />}
       {activeTab === "Share" && <Share />}
-      {activeTab === "Report" && <Report />}
-      {activeTab === "Winning" && <Winning />}
+      {/* {activeTab === "Report" && <Report />}
+      {activeTab === "Winning" && <Winning />} */}
     </div>
   )
 }

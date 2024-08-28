@@ -215,7 +215,7 @@ const ManageContest = () => {
 
                         <button 
                           type="button" 
-                          className="w-[130px] font-normal border-primary bg-[#fff] rounded-md text-primary text-base p-2 border border-solid"
+                          className="w-[130px] hidden font-normal border-primary bg-[#fff] rounded-md text-primary text-base p-2 border border-solid"
                         >
                           Edit Contest
                         </button>

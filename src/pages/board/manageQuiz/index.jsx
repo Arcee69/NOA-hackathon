@@ -12,13 +12,50 @@ import { appUrls } from '../../../services/urls'
 import { toast } from 'react-toastify'
 import { CgSpinner } from 'react-icons/cg'
 
+const ITEMS_PER_PAGE = 10;  // Set the number of items per page
+
 const ManageQuiz = () => {
     const [allQuizzes, setAllQuizzes] = useState([])
     const [loading, setLoading] = useState(false)
     const [deleteLoading, setDeleteLoading] = useState(false)
     const [closeQuizLoading, setCloseQuizLoading] = useState(false)
+    const [allTransactions, setAllTransactions] = useState([])
+    const [totalAmount, setTotalAmount] = useState(0);
+    const [totalParticipants, setTotalParticipants] = useState(0);
+    const [highScorers, setHighScorers] = useState([]);
+    const [page, setPage] = useState(1)
+    const [totalNumberOfPages, setTotalNumberOfPages] = useState(1)
 
     const navigate = useNavigate()
+
+    const fetchTransactionData = async() => {
+        await api.get(appUrls?.GET_ALL_TRANSACTIONS_URL)
+        .then((res) => {
+          console.log(res, "data")
+          setAllTransactions(res?.data?.data)
+        })
+        .catch((err) => {
+          console.log(err, "err")
+        })
+      }
+    
+    useEffect(() => {
+        fetchTransactionData();
+    }, [])
+
+    useEffect(() => {
+        // Calculate the total amount whenever allTransactions changes
+        const total = allTransactions?.reduce((acc, transaction) => {
+          return acc + parseFloat(transaction.amount || 0);
+        }, 0);
+        
+        // Update totalAmount state
+        setTotalAmount(total);
+
+        // Calculate the total number of unique participants
+        const uniqueParticipants = new Set(allTransactions.map(transaction => transaction.participant_id));
+        setTotalParticipants(uniqueParticipants.size);
+      }, [allTransactions]);
 
     const getAllQuiz = async () => {
         setLoading(true)
@@ -33,6 +70,8 @@ const ManageQuiz = () => {
             console.log(err, "sample")
         })
     }
+
+    const formatter = new Intl.NumberFormat('en-US');
 
     const activeQuizzes = allQuizzes?.filter(quiz => quiz.status === 'active');
 
@@ -88,32 +127,68 @@ const ManageQuiz = () => {
         })
     }
 
- 
-    const scorersData = [
-        // {
-        //   id: 1,
-        //   name: "Oluwaseun Adebayo",
-        //   number: "08098765432",
-        //   residence: "Lagos",
-        //   score: 1,
-        //   amount: "₦1,000",
-        //   date: "04/04/23",
-        //   time: "5:45:13"
-        // },
-        // {
-        //   id: 2,
-        //   name: "Chioma Nwosu",
-        //   number: "08098765432",
-        //   residence: "Lagos",
-        //   score: 5,
-        //   amount: "₦10,000",
-        //   date: "04/04/23",
-        //   time: "5:45:13"
-        // },
+
+    const getAllParticipantQuiz = async (quizId) => {
+        try {
+            const res = await api.get(`${appUrls?.GET_PARTICIPANT_URL}/${quizId}`);
+            const participants = res?.data?.data;
+           
     
-      ];
+            if (participants && participants.length > 0) {
+                // Find the participant with the highest score
+                const highScorer = participants.reduce((max, participant) => 
+                    participant.score > max.score ? participant : max,
+                    participants[0]
+                );
+
+                return highScorer;
+            } else {
+                return null;
+            }
+        } catch (err) {
+            console.log(err, "sample");
+            return null;
+        }
+    };
+    
+    const getHighScorersForAllQuizzes = async () => {
+        const scorers = await Promise.all(
+            allQuizzes.map(async (quiz) => {
+                const highScorer = await getAllParticipantQuiz(quiz.id);
+                return {
+                    quizId: quiz.id,
+                    quizTitle: quiz.title,
+                    highScorer,
+                };
+            })
+        );
+        setTotalNumberOfPages(Math.ceil(scorers?.length / ITEMS_PER_PAGE));
+        setHighScorers(scorers);
+    };
+    
+    // Call this function in useEffect or whenever appropriate
+    useEffect(() => {
+        getHighScorersForAllQuizzes();
+    }, [allQuizzes]);
+
+    console.log(highScorers, 'highScorers')
+  
+ 
+    const handlePageChange = (event, newPage) => {
+        setPage(newPage);
+    };
+
+    const currentPageScorers = highScorers?.slice(
+        (page - 1) * ITEMS_PER_PAGE,
+        page * ITEMS_PER_PAGE
+    );
+
 
       const columns = [
+        { 
+            Header: "Quiz", 
+            accessor: "quizTitle" 
+        },
         { 
             Header: "Name", 
             accessor: "name" 
@@ -122,8 +197,8 @@ const ManageQuiz = () => {
             accessor: "phone" 
         },
         { 
-            Header: "State of Resident", 
-            accessor: "resident" 
+            Header: "Email", 
+            accessor: "email" 
         },
         {   
             Header: "Score", 
@@ -133,27 +208,28 @@ const ManageQuiz = () => {
             Header: "Amount Won", 
             accessor: "amount" 
         },
-        { 
-            Header: "Date", 
-            accessor: "date" 
-        },
+        // { 
+        //     Header: "Date", 
+        //     accessor: "date" 
+        // },
         { 
             Header: "Time spent", 
             accessor: "time" 
         },
       ];
 
-      const data = scorersData?.map((data) => ({ 
+      const data = currentPageScorers?.map((data) => ({ 
+        quizTitle:<div className='text-base font-medium font-mont_alt capitalize text-[#1D2939]'>{data?.quizTitle}</div>,
         name:  
             <div className='flex flex-row gap-2 items-center' >
-                <p className='text-sm font-medium font-mont_alt text-[#1D2939]'>{data?.name}</p>
+                <p className='text-sm font-medium font-mont_alt capitalize text-[#1D2939]'>{data?.highScorer?.name}</p>
             </div>,
-        phone: <div className='text-base font-medium font-mont_alt text-[#1D2939]'>{data?.number}</div>,
-        resident: <div className='text-base font-medium font-mont_alt text-[#1D2939]'>{data?.residence}</div>,
-        score: <div className='text-base font-medium font-mont_alt text-[#1D2939]'>{data?.score}</div>,
-        amount: <div className='text-base font-medium font-mont_alt text-[#1D2939]'>{data?.amount}</div>,
-        date: <div className='text-base font-medium font-mont_alt text-[#1D2939]'>{data?.date}</div>,
-        time: <div className='text-base font-medium font-mont_alt text-[#1D2939]'>{data?.time}</div>,
+        phone: <div className='text-base font-medium font-mont_alt capitalize text-[#1D2939]'>{data?.highScorer?.phone}</div>,
+        email: <div className='text-base font-medium font-mont_alt capitalize text-[#1D2939]'>{data?.highScorer?.email}</div>,
+        score: <div className='text-base font-medium font-mont_alt capitalize text-[#1D2939]'>{data?.highScorer?.score}</div>,
+        amount: <div className='text-base font-medium font-mont_alt capitalize text-[#1D2939]'>{`₦${data?.highScorer?.amount_won || 0}`}</div>,
+        // date: <div className='text-base font-medium font-mont_alt capitalize text-[#1D2939]'>{new Date(data?.highScorer?.created_at).toDateString()}</div>,
+        time: <div className='text-base font-medium font-mont_alt capitalize text-[#1D2939]'>{data?.highScorer?.time_spent}</div>,
     }
     
     ))  
@@ -175,19 +251,17 @@ const ManageQuiz = () => {
             <Divider orientation='vertical' flexItem/>
             <div className='flex flex-col p-3 xs:gap-2 '>
                 <p className='text-NEUTRAL-_700 font-normal font-mont_alt xs:text-sm md:text-base'>Total Takers</p>
-                <p className='text-[#027315] font-bold font-mont_alt xs:text-base md:text-2xl'>0</p>
-                {/* <p className='text-[#000] font-normal xs:text-xs md:text-sm'>2% average partcipation</p> */}
+                <p className='text-[#027315] font-bold font-mont_alt xs:text-base md:text-2xl'>{formatter.format(totalParticipants)}</p>
             </div>
             <Divider orientation='vertical' flexItem/>
             <div className='flex flex-col  p-3 xs:gap-2'>
                 <p className='text-NEUTRAL-_700 font-normal font-mont_alt xs:text-sm md:text-base'>Total Entries</p>
-                <p className='text-[#027315] font-bold font-mont_alt xs:text-base md:text-2xl'>0</p>
-                {/* <p className='text-[#000] font-normal xs:text-xs md:text-sm'>40% Average Voting</p> */}
+                <p className='text-[#027315] font-bold font-mont_alt xs:text-base md:text-2xl'>{formatter.format(totalParticipants)}</p>
             </div>
             <Divider orientation='vertical' flexItem/>
             <div className='flex flex-col p-3 xs:gap-2'>
                 <p className='text-NEUTRAL-_700 font-normal font-mont_alt xs:text-sm md:text-base'>Total Amount Won</p>
-                <p className='text-[#027315] font-bold font-mont_alt xs:text-base md:text-2xl'>₦0</p>
+                <p className='text-[#027315] font-bold font-mont_alt xs:text-base md:text-2xl'>{`₦${formatter.format(totalAmount)}`}</p>
             </div>
         </div>
 
@@ -258,7 +332,13 @@ const ManageQuiz = () => {
 
         <div className='bg-[#fff] rounded-xl flex flex-col my-10 gap-5 p-8'>
             <h2 className='text-[#000] text-xl font-semibold font-mont_alt'>Top Scorers</h2>
-            <Table2 data={data} columns={columns}/>
+            <Table2 
+                data={data} 
+                columns={columns}
+                totalNumberOfPages={totalNumberOfPages}
+                page={page}
+                handlePaginationChange={handlePageChange}
+            />
         </div>
         
     </div>

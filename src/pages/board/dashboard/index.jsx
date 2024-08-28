@@ -115,7 +115,7 @@ const Dashboard = () => {
             </div>
           </div>
 
-          <div className='flex mt-6'>
+          <div className='flex mt-6 hidden'>
             <LineReport />
           </div>
 
