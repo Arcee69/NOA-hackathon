@@ -26,7 +26,7 @@ const BasicInfo = ({ setActiveTab, state }) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  // console.log(state, "panda")
+  console.log(state, "panda")
 
   const token = localStorage.getItem("token")
   let BaseURL = import.meta.env.VITE_APP_API_URL;
@@ -80,7 +80,7 @@ const BasicInfo = ({ setActiveTab, state }) => {
         "desc":  state?.desc || values?.description,
         "start_date": state?.start_date || startDate,
         "end_date": state?.end_date || endDate,
-        "duration_of_quiz": state?.duration_of_quiz || values?.duration,
+        "duration_of_quiz": state?.duration_of_quiz || `${values?.duration}`,
         "amount_for_winners": state?.amount_for_winners ||  values?.prizeValue,
       }
 
