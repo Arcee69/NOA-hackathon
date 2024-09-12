@@ -75,14 +75,15 @@ const BasicInfo = ({ setActiveTab, state }) => {
       const endDate = values?.endDate.replace('T', ' ');
 
       const data = {
-        "title": state?.title || values?.quizName,
-        "budget": state?.budget || values?.budget,
-        "desc":  state?.desc || values?.description,
-        "start_date": state?.start_date || startDate,
-        "end_date": state?.end_date || endDate,
-        "duration_of_quiz": state?.duration_of_quiz || `${values?.duration}`,
-        "amount_for_winners": state?.amount_for_winners ||  values?.prizeValue,
+        "title": values?.quizName || state?.title ,
+        "budget": values?.budget || state?.budget,
+        "desc": values?.description || state?.desc,
+        "start_date": startDate ||  state?.start_date ,
+        "end_date": endDate || state?.end_date,
+        "duration_of_quiz": `${values?.duration}` || `${state?.duration_of_quiz}`,
+        "amount_for_winners": values?.prizeValue || state?.amount_for_winners,
       }
+
 
 
       let formData = new FormData()

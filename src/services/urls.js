@@ -17,7 +17,7 @@ export const appUrls = {
 
     //QUIZ ENDPOINT
     CREATE_QUIZ_URL: "/api/quizzes/create",
-    EDIT_QUIZ_URL: "/api/quizzes/update",
+    EDIT_QUIZ_URL: "/api/quizzes/update-quiz",
     EDIT_QUIZ_IMAGE_URL: "/api/quizzes/update-image",
     GET_ALL_QUIZ_URL: "/api/quizzes",
     GET_QUIZ_OVERVIEW_BY_ID_URL: "/api/quizzes/overview",
