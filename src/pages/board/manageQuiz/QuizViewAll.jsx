@@ -159,7 +159,7 @@ const QuizViewAll = () => {
                                 <div className='flex flex-col gap-2 px-4'>
                                     <div className='flex items-center justify-between'>
                                         <p className='font-manja text-[20px] font-bold text-[#000000]'>{item.title}</p>
-                                        <div className='bg-[#Ffff00] rounded-[8px] w-[192px]'>
+                                        <div className='bg-[#Ffff00] items-center flex flex-col p-1 justify-center rounded-[8px] w-[192px]'>
                                             <p className='font-mont_alt font-semibold text-[#fff] text-sm'>Pending</p>
                                         </div>
                                     </div>
@@ -167,9 +167,14 @@ const QuizViewAll = () => {
                                             {item?.desc?.slice(0, 20)}
                                     </p>
                                 
-                                    <button className='bg-[#027315] rounded-[8px] border w-[124px] py-2 px-[15px] border-[#00AA55]'>
-                                        <p className='font-mont_alt font-semibold text-[#fff] text-sm '>Take Quiz</p>
-                                    </button>
+                                    <div className='flex items-center justify-between'>
+                                        <button className='bg-[#027315] rounded-[8px] border w-[124px] py-2 px-[15px] border-[#00AA55]'>
+                                            <p className='font-mont_alt font-semibold text-[#fff] text-sm '>Take Quiz</p>
+                                        </button>
+                                        <button onClick={() => navigate("/quiz/edit-quiz", {state: item})} className='bg-[#020D73] rounded-[8px] border w-[124px] py-2 px-[15px] border-[#020D73]'>
+                                            <p className='font-mont_alt font-semibold text-[#fff] text-sm '>Edit Quiz</p>
+                                        </button>
+                                    </div>
 
                                 </div>
 

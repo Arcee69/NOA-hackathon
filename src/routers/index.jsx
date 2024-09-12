@@ -35,6 +35,7 @@ import QuizView from '../pages/board/manageQuiz/createQuiz/components/contest/Co
 import QuizViewDetails from '../pages/board/manageQuiz/quizDetails';
 import QuizViewAll from '../pages/board/manageQuiz/QuizViewAll';
 import Transactions from '../pages/board/transaction';
+import EditQuiz from '../pages/board/manageQuiz/editQuiz';
 
 
 export default function Routers () {
@@ -61,6 +62,7 @@ export default function Routers () {
               <Route path='/manage-admin/create-admin' element={<CreateAdmin />} />
               <Route path='/quiz' element={<ManageQuiz />} />
               <Route path="/quiz/create-quiz" element={<CreateQuiz />} />
+              <Route path="/quiz/edit-quiz" element={<EditQuiz />} />
               <Route path="/quiz/view-quiz" element={<QuizView />} />
               <Route path="/quiz/view-details" element={<QuizViewDetails />} />
               <Route path="/quiz/view-all" element={<QuizViewAll />} />
