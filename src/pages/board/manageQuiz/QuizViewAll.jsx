@@ -159,7 +159,7 @@ const QuizViewAll = () => {
                                 <div className='flex flex-col gap-2 px-4'>
                                     <div className='flex items-center justify-between'>
                                         <p className='font-manja text-[20px] font-bold text-[#000000]'>{item.title}</p>
-                                        <div className='bg-[#Ffff00] items-center flex flex-col p-1 justify-center rounded-[8px] w-[192px]'>
+                                        <div className='bg-[#Ffff00] items-center flex flex-col p-1 justify-center rounded-[8px] w-24'>
                                             <p className='font-mont_alt font-semibold text-[#fff] text-sm'>Pending</p>
                                         </div>
                                     </div>
@@ -182,11 +182,11 @@ const QuizViewAll = () => {
                         ))}
                         {closedQuizzes?.length > 0 && closedQuizzes?.map((item) => (
                             <div key={item?.id} className='lg:w-[340px] h-auto p-2 flex flex-col relative border border-[#E8F2EA] rounded-tl-xl rounded-tr-xl '>
-                                <div className='absolute top-0 left-0 w-full z-30 h-full bg-[#222222A6] rounded-xl flex items-center justify-center'>
+                                {/* <div className='absolute top-0 left-0 w-full z-30 h-full bg-[#222222A6] rounded-xl flex items-center justify-center'>
                                     <button className='bg-[#ff0000] rounded-[8px] w-[292px] border py-2 px-4 border-[#0A5]'>
                                         <p className='font-mont_alt font-semibold text-[#fff] text-sm '>Closed</p>
                                     </button>
-                                </div>
+                                </div> */}
                                 <div className='bg-[#add8e6] p-2 flex items-center justify-center'>
                                     <img src={item.image} alt='Zones' className='h-[211px]'/>
                                 </div>
@@ -208,15 +208,24 @@ const QuizViewAll = () => {
 
                                 </div>
                                 <div className='flex flex-col gap-2 px-4'>
-                                    <p className='font-manja text-[20px] font-bold text-[#000000]'> {item.title}</p>
+                                    <div className='flex items-center justify-between'>
+                                        <p className='font-manja text-[20px] font-bold text-[#000000]'>{item.title}</p>
+                                        <div className='bg-[#ff0000] items-center flex flex-col p-1 justify-center rounded-[8px] w-24'>
+                                            <p className='font-mont_alt font-semibold text-[#fff] text-sm'>Closed</p>
+                                        </div>
+                                    </div>
                                     <p className='opacity-40 text-[#000] font-mont_alt font-medium text-sm'>
                                             {item?.desc?.slice(0, 20)}
                                     </p>
-                                
-                                    <button className='bg-[#027315] rounded-[8px] border w-[124px] py-2 px-[15px] border-[#00AA55]'>
-                                        <p className='font-mont_alt font-semibold text-[#fff] text-sm '>Take Quiz</p>
-                                    </button>
-
+                                    
+                                    <div className='flex items-center justify-between'>
+                                        <button className='bg-[#027315] rounded-[8px] border hidden w-[124px] py-2 px-[15px] border-[#00AA55]'>
+                                            <p className='font-mont_alt font-semibold text-[#fff] text-sm '>Take Quiz</p>
+                                        </button>
+                                        <button onClick={() => navigate("/quiz/quiz-details", {state: item})} className='bg-[#020D73] rounded-[8px] border w-[124px] py-2 px-[15px] border-[#020D73]'>
+                                            <p className='font-mont_alt font-semibold text-[#fff] text-sm '>Details</p>
+                                        </button>
+                                    </div>
                                 </div>
 
                             </div>

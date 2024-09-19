@@ -36,6 +36,7 @@ import QuizViewDetails from '../pages/board/manageQuiz/quizDetails';
 import QuizViewAll from '../pages/board/manageQuiz/QuizViewAll';
 import Transactions from '../pages/board/transaction';
 import EditQuiz from '../pages/board/manageQuiz/editQuiz';
+import QuizParticipant from '../pages/board/manageQuiz/QuizParticipant';
 
 
 export default function Routers () {
@@ -66,6 +67,7 @@ export default function Routers () {
               <Route path="/quiz/view-quiz" element={<QuizView />} />
               <Route path="/quiz/view-details" element={<QuizViewDetails />} />
               <Route path="/quiz/view-all" element={<QuizViewAll />} />
+              <Route path="/quiz/quiz-details" element={<QuizParticipant />} />
               <Route path="/transactions" element={<Transactions />} />
               {/* <Route path='/judges-contests/:id' element={<ViewContest />} /> */}
               {/* <Route path='/manage-judges/judges-info' element={<JudgesInfo />} /> */}
