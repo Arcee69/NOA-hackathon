@@ -39,7 +39,7 @@ const SetQuestions = () => {
   const submitForm = async (values) => {
     setLoading(true)
     const transformedData = {
-      quiz_id: quizId, // Replace with your actual quiz ID
+      quiz_id: quizId, 
       questions: values.questions.map((q) => ({
         body: q.question,
         options: q.options.map((o) => ({
